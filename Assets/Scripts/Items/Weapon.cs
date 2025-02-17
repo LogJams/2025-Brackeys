@@ -5,18 +5,44 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour, Equipment {
 
-    public Vitality owner;
+
+    [Header("Custom Weapon Properties")]
+    public List<Enchantment> enchantments;
+    public float baseDamage = 1;
+
+    [Header("Required References")]
     public Collider hitArea;
 
-    public List<Enchantment> enchantments;
+
+    Vitality owner;
 
     public override string ToString() {
         return enchantments[0].name + "blade";
     }
 
+    public Vitality GetOwner() {
+        return owner;
+    }
+
     private void Start() {
+        //make sure this is a child of the owner object!
+        owner = GetComponentInParent<Vitality>();
         hitArea.enabled = false;
     }
+
+
+    void OnTriggerEnter(Collider other) {
+        Vitality toHit = null;
+
+        //make sure 1. it's got a vitality, 2. it's not ourselves, and 3. it's not an AI trigger
+        if (other.TryGetComponent(out toHit) && toHit != owner && other.gameObject.layer != LayerMask.NameToLayer("AI Trigger")) {
+            /////// disable hitArea and handle enchantment/combat in the Vitality
+            hitArea.enabled = false;
+            toHit.Attacked(this);
+
+        }
+    }
+
 
     public void StartSwinging() {
         hitArea.enabled = true;
@@ -27,58 +53,5 @@ public class Weapon : MonoBehaviour, Equipment {
         hitArea.enabled = false;
     }
 
-    public int OnHit(Vitality target) {
-        int damage = 1;
-
-        ///// block of code to handle enchantments
-
-        //first check for curses
-        bool curseEffect = false;
-        foreach (Enchantment ench in enchantments) {
-            foreach (Curse curse in ench.curses) {
-                //check if the curse applies
-                if (target.GetAttributes().Contains(curse.trigger)) {
-                    curseEffect = true;
-                    //apply (beneficial?) curses to targets
-                    if (curse.target == TARGETS.target) {
-                        target.AddStatusEffect(curse.effect);
-                    }
-                    //apply cuse to ourselves
-                    else {
-                        owner.AddStatusEffect(curse.effect);
-                    }
-
-
-                }
-            }
-        }
-
-
-        //todo: check how our enchantment affects OnHit based on target properties
-        if (!curseEffect) {
-            foreach (Enchantment ench in enchantments) {
-                //do stuff to the target if it applies
-                if (ench.target == TARGETS.target && HasValidAttribute(target, ench.attribute)) {
-                    target.AddStatusEffect(ench.effect);
-                }
-                else if (ench.target == TARGETS.self && HasValidAttribute(owner, ench.attribute)) {
-                    owner.AddStatusEffect(ench.effect);
-                }
-            }
-        }
-
-        /////// end of enchantment block, disable hitArea and do damage
-        hitArea.enabled = false;
-        return damage;
-    }
-
-
-    private bool HasValidAttribute(Vitality vit, ATTRIBUTE atb) {
-        if (atb == ATTRIBUTE.ANY || vit.GetAttributes().Contains(atb)) {
-            return true;
-        }
-
-        return false;
-    }
 
 }

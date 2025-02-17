@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 [Serializable]
 public struct EffectMap {
@@ -91,6 +92,12 @@ public class SceneManager : MonoBehaviour {
     }
 
     public void OnLoseEffect(System.Object source, EFFECTS effect) {
+        // "harmless" is an effect that makes the current attack not damage the target
+        // we don't create any effects, so we can just exit out instead
+        if (effect == EFFECTS.harmless) {
+            return;
+        }
+
         var key = ((Vitality)source, effect);
         if (!activeEffects.ContainsKey(key)) {
             Debug.LogWarning("Tried to remove " + effect + " from " + ((Vitality)source).gameObject.name + ", but none found.");
@@ -102,6 +109,7 @@ public class SceneManager : MonoBehaviour {
 
     }
 
+    //for combat related stuff
     public int EffectHealthChange(EFFECTS effect) {
         int dh = 0;
         if (effect == EFFECTS.fire) {
@@ -114,6 +122,59 @@ public class SceneManager : MonoBehaviour {
         return dh;
     }
 
+
+    public float HandleCombat(Weapon weap, Vitality target) {
+        float damage = weap.baseDamage;
+
+        ///// block of code to handle enchantments
+
+        //first check for curses
+        bool curseEffect = false;
+        foreach (Enchantment ench in weap.enchantments) {
+            foreach (Curse curse in ench.curses) {
+                //check if the curse applies
+                if (target.GetAttributes().Contains(curse.trigger)) {
+                    curseEffect = true;
+                    //apply (beneficial?) curses to targets
+                    if (curse.target == TARGETS.target) {
+                        target.AddStatusEffect(curse.effect);
+                    }
+                    //apply cuse to ourselves
+                    else {
+                        weap.GetOwner().AddStatusEffect(curse.effect);
+                    }
+
+
+                }
+            }
+        }
+
+
+        //todo: check how our enchantment affects OnHit based on target properties
+        if (!curseEffect) {
+            foreach (Enchantment ench in weap.enchantments) {
+                //do stuff to the target if it applies
+                if (ench.target == TARGETS.target && HasValidAttribute(target, ench.attribute)) {
+                    target.AddStatusEffect(ench.effect);
+                } else if (ench.target == TARGETS.self && HasValidAttribute(weap.GetOwner(), ench.attribute)) {
+                    weap.GetOwner().AddStatusEffect(ench.effect);
+                }
+            }
+        }
+        return damage;
+    }
+
+
+    private bool HasValidAttribute(Vitality vit, ATTRIBUTE atb) {
+        if (atb == ATTRIBUTE.ANY || vit.GetAttributes().Contains(atb)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    //clean up references when something dies
     public void OnDeath(System.Object source, EventArgs e) {
         Vitality vt = (Vitality)source;
         //clean up our event listeners

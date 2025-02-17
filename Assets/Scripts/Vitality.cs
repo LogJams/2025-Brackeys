@@ -118,22 +118,19 @@ public class Vitality : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter(Collider other) {
-        Weapon weap = null;
+    public void Attacked(Weapon weap) {
+       
+       float dmg = SceneManager.instance.HandleCombat(weap, this);
 
-        if (other.TryGetComponent(out weap) && weap.owner != this) {
-            int dmg = weap.OnHit(this);
+       if (statusEffects.Contains(EFFECTS.harmless)) {
+           dmg = 0;
+           statusEffects.Remove(EFFECTS.harmless);
+           statusTimer.Remove(EFFECTS.harmless);
+           OnLoseEffect?.Invoke(this, EFFECTS.harmless);
+       }
 
-            if (statusEffects.Contains(EFFECTS.harmless)) {
-                dmg = 0;
-                statusEffects.Remove(EFFECTS.harmless);
-                statusTimer.Remove(EFFECTS.harmless);
-                OnLoseEffect?.Invoke(this, EFFECTS.harmless);
-
-            }
-
-            hp -= dmg;
-        }
+       hp -= dmg;
+       
     }
 
 }

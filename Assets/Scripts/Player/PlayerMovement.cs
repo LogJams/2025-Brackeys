@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.NameToLayer("GROUND_PLANE_ONLY"), QueryTriggerInteraction.Ignore))
         {
             return hitInfo.point;
         }
