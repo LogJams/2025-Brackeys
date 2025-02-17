@@ -523,10 +523,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1728359397266044175}
+  - component: {fileID: 5531149827846523066}
   - component: {fileID: 7921997671709423336}
   - component: {fileID: 1752699625624924493}
   - component: {fileID: 2232657974493874904}
-  - component: {fileID: 5531149827846523066}
   - component: {fileID: 5877025015601943486}
   - component: {fileID: 9198752933824826073}
   - component: {fileID: 5731704539434099845}
@@ -556,6 +556,25 @@ Transform:
   - {fileID: 6262446814633066009}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5531149827846523066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8637514455642063829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc3b8915da983a40970a4d4550e189e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mType: 1
+  useRawInputs: 1
+  snappyStops: 0
+  snappyStopThreshold: 0.1
+  smoothRotations: 0
+  rotation_responsiveness: 10
+  speed: 5
 --- !u!33 &7921997671709423336
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -632,20 +651,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5531149827846523066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637514455642063829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afc3b8915da983a40970a4d4550e189e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveToMouse: 1
-  speed: 5
 --- !u!114 &5877025015601943486
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,45 +1,86 @@
 using UnityEngine;
 
-// This is the old movement class
+public enum MOVEMENT_TYPE {
+    STOLEN_TIME, ADI_MOUSE, WASD
+}
 
-public class PlayerMovement : MonoBehaviour
-{
+
+public class PlayerMovement : MonoBehaviour {
+
     private CharacterController charactercontroller;
 
-    [Header("Test Variables")]
-    public bool moveToMouse = false;
+    [Header("Test Different Input Configurations Here")]
+    public MOVEMENT_TYPE mType = MOVEMENT_TYPE.ADI_MOUSE;
+    public bool useRawInputs = true;
+    public bool snappyStops = true;
+    [Range(0, 1)]
+    public float snappyStopThreshold = 0.1f;
+
+    public bool smoothRotations = false;
+
+    [Range(2, 100)]
+    public float rotation_responsiveness = 10;
+
+    Quaternion q0;
+
+    
     [Header("Player Variables")]
     public float speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         charactercontroller = GetComponent<CharacterController>();
+        q0 = transform.rotation;
     }
     // Update is called once per frame
-    void Update()
-    {
-        //default movement
-        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Quaternion rotation = Quaternion.AngleAxis(45f, new Vector3(0, 1, 0));
-        //always look at the mouse
-        Vector3 lookAt = MouseWorldPoint();
-        if (lookAt.y >= -0.1)
-        {
-            lookAt -= transform.position;
-            lookAt.y = 0;
-            //look at the mouse raycast point
-            transform.rotation = Quaternion.LookRotation(lookAt, Vector3.up);
+    void Update() {
+        //Get movement vector and rotate the inputs 45 degrees to match the camera
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (useRawInputs || (movement.sqrMagnitude <= snappyStopThreshold* snappyStopThreshold)) {
+            movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
-        //move toward mouse movement
-        if (moveToMouse)
-        {
-            rotation = Quaternion.AngleAxis(Mathf.Atan2(lookAt.x, lookAt.z) * 180 / Mathf.PI, new Vector3(0, 1, 0));
-            movement.x = 0;
+
+
+        Quaternion inputRotation = Quaternion.AngleAxis(45f, new Vector3(0, 1, 0));
+        q0 = transform.rotation;
+
+        Vector3 lookAtMouse = MouseWorldPoint();       
+        lookAtMouse -= transform.position;
+        lookAtMouse.y = 0;
+
+        switch (mType) {
+            case (MOVEMENT_TYPE.STOLEN_TIME):
+                //look at the mouse
+                LookAt(lookAtMouse);
+                break;
+            case (MOVEMENT_TYPE.ADI_MOUSE):
+                //look at the mouse
+                LookAt(lookAtMouse);
+                //only move forward/backward
+                inputRotation = Quaternion.AngleAxis(Mathf.Atan2(lookAtMouse.x, lookAtMouse.z) * 180 / Mathf.PI, new Vector3(0, 1, 0));
+                movement.x = 0;
+                break;
+            case (MOVEMENT_TYPE.WASD):
+                //always look toward movement direction
+                if (movement.sqrMagnitude > 0.01) {
+                    LookAt(inputRotation * movement);
+                }
+                break;
         }
-        //move
-        charactercontroller.SimpleMove(rotation * movement * speed);
-        //transform.position = transform.position + rotation * movement * speed * Time.deltaTime;
+
+        //from above, move the character at speed
+        charactercontroller.SimpleMove(inputRotation * movement * speed);
     }
+
+    private void LookAt(Vector3 target) {
+        if (smoothRotations) {
+            transform.rotation = Quaternion.Lerp(q0, Quaternion.LookRotation(target, Vector3.up), rotation_responsiveness * Time.deltaTime);
+        } else {
+            transform.rotation = Quaternion.LookRotation(target, Vector3.up);
+        }
+    }
+
     public Vector3 MouseWorldPoint()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
