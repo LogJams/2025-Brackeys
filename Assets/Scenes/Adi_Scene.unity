@@ -885,8 +885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7b0012834ac104eb9af2b7be3639dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 2
-  attributes: 01000000
+  max_hp: 5
+  attributes: 02000000
 --- !u!54 &499396079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieList:
   - {fileID: 1217395038}
-  - {fileID: 499396078}
+  - {fileID: 1935874164}
   openSpeed: 4
 --- !u!65 &779979423
 BoxCollider:
@@ -1920,8 +1920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7b0012834ac104eb9af2b7be3639dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 2
-  attributes: 00000000
+  max_hp: 5
+  attributes: 01000000
 --- !u!54 &1217395039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2851,8 +2851,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7b0012834ac104eb9af2b7be3639dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 2
-  attributes: 00000000
+  max_hp: 5
+  attributes: 01000000
 --- !u!54 &1935874165
 Rigidbody:
   m_ObjectHideFlags: 0
