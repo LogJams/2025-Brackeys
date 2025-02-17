@@ -68,6 +68,9 @@ public class SceneManager : MonoBehaviour {
         if (effect == EFFECTS.fire) {
             dh = -1;
         }
+        if (effect == EFFECTS.heal) {
+            dh = 1;
+        }
 
         return dh;
     }

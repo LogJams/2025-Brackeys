@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 4
-  attributes: 00000000
+  attributes: 01000000
 --- !u!114 &1257788114790017468
 MonoBehaviour:
   m_ObjectHideFlags: 0
