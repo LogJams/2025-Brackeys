@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private CharacterController charactercontroller;
+
     [Header("Test Variables")]
     public bool moveToMouse = false;
     [Header("Player Variables")]
@@ -11,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        charactercontroller = GetComponent<CharacterController>();
     }
     // Update is called once per frame
     void Update()
@@ -35,7 +37,8 @@ public class PlayerMovement : MonoBehaviour
             movement.x = 0;
         }
         //move
-        transform.position = transform.position + rotation * movement * speed * Time.deltaTime;
+        charactercontroller.SimpleMove(rotation * movement * speed);
+        //transform.position = transform.position + rotation * movement * speed * Time.deltaTime;
     }
     public Vector3 MouseWorldPoint()
     {
