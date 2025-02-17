@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4626342649165308324}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.26005346, z: -0, w: 0.96559423}
+  m_LocalRotation: {x: 0, y: 0.26004952, z: 0, w: 0.9655953}
   m_LocalPosition: {x: 7.87, y: 0.95, z: 4.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 4
-  attributes: 01000000
+  attributes: 02000000
 --- !u!114 &1694437279003776509
 MonoBehaviour:
   m_ObjectHideFlags: 0

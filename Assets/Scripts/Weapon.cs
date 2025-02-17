@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
@@ -8,6 +9,10 @@ public class Weapon : MonoBehaviour {
     public Collider hitArea;
 
     public List<Enchantment> enchantments;
+
+    private void Start() {
+        hitArea.enabled = false;
+    }
 
     public void StartSwinging() {
         hitArea.enabled = true;
@@ -20,7 +25,6 @@ public class Weapon : MonoBehaviour {
 
     public int OnHit(Vitality target) {
         int damage = 1;
-
         ///// block of code to handle enchantments
 
         //first check for curses
@@ -49,10 +53,10 @@ public class Weapon : MonoBehaviour {
         if (!curseEffect) {
             foreach (Enchantment ench in enchantments) {
                 //do stuff to the target if it applies
-                if (ench.target == TARGETS.target && target.attributes.Contains(ench.attribute)) {
+                if (ench.target == TARGETS.target && HasValidAttribute(target, ench.attribute)) {
                     target.AddStatusEffect(ench.effect);
                 }
-                else if (ench.target == TARGETS.self && owner.attributes.Contains(ench.attribute)) {
+                else if (ench.target == TARGETS.self && HasValidAttribute(owner, ench.attribute)) {
                     owner.AddStatusEffect(ench.effect);
                 }
             }
@@ -60,9 +64,16 @@ public class Weapon : MonoBehaviour {
 
         /////// end of enchantment block, disable hitArea and do damage
         hitArea.enabled = false;
-
         return damage;
     }
 
+
+    private bool HasValidAttribute(Vitality vit, ATTRIBUTE atb) {
+        if (atb == ATTRIBUTE.ANY || vit.attributes.Contains(atb)) {
+            return true;
+        }
+
+        return false;
+    }
 
 }
