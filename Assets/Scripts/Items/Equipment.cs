@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ATTRIBUTE {
-    ANY, Flamable, Red
+public interface Equipment {
+
+
 }

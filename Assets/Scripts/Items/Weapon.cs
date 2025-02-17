@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using Unity.Properties;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour {
+public class Weapon : MonoBehaviour, Equipment {
 
     public Vitality owner;
     public Collider hitArea;
 
     public List<Enchantment> enchantments;
+
+    public override string ToString() {
+        return enchantments[0].name + "blade";
+    }
 
     private void Start() {
         hitArea.enabled = false;
@@ -25,6 +29,7 @@ public class Weapon : MonoBehaviour {
 
     public int OnHit(Vitality target) {
         int damage = 1;
+
         ///// block of code to handle enchantments
 
         //first check for curses
@@ -32,7 +37,7 @@ public class Weapon : MonoBehaviour {
         foreach (Enchantment ench in enchantments) {
             foreach (Curse curse in ench.curses) {
                 //check if the curse applies
-                if (target.attributes.Contains(curse.trigger)) {
+                if (target.GetAttributes().Contains(curse.trigger)) {
                     curseEffect = true;
                     //apply (beneficial?) curses to targets
                     if (curse.target == TARGETS.target) {
@@ -69,7 +74,7 @@ public class Weapon : MonoBehaviour {
 
 
     private bool HasValidAttribute(Vitality vit, ATTRIBUTE atb) {
-        if (atb == ATTRIBUTE.ANY || vit.attributes.Contains(atb)) {
+        if (atb == ATTRIBUTE.ANY || vit.GetAttributes().Contains(atb)) {
             return true;
         }
 

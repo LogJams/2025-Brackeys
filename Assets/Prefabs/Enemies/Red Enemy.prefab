@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 4
-  attributes: 02000000
+  equipment: {fileID: 0}
+  baseAttributes: 02000000
 --- !u!114 &1694437279003776509
 MonoBehaviour:
   m_ObjectHideFlags: 0
