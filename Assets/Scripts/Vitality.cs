@@ -9,7 +9,7 @@ public class Vitality : MonoBehaviour {
     public event System.EventHandler<EFFECTS> OnLoseEffect;
 
     public float max_hp = 2;
-    private float hp;
+    private float _hp;
 
     public float hp {
         get { return _hp; } 

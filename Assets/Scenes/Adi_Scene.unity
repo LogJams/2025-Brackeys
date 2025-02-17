@@ -886,6 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 2
+  attributes: 01000000
 --- !u!54 &499396079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1235,6 +1236,7 @@ GameObject:
   - component: {fileID: 617214284}
   - component: {fileID: 617214283}
   - component: {fileID: 617214288}
+  - component: {fileID: 617214289}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1274,7 +1276,7 @@ MonoBehaviour:
   weapon: {fileID: 2003123885}
   swingT: 0.13
   dashDuration: 0.1
-  dashSpeedMultiplier: 20
+  dashSpeedMultiplier: 5
 --- !u!114 &617214284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1392,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &617214289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617214281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7b0012834ac104eb9af2b7be3639dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_hp: 5
+  attributes: 
 --- !u!1 &652829616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,6 +1705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieList:
   - {fileID: 1217395038}
+  - {fileID: 499396078}
   openSpeed: 4
 --- !u!65 &779979423
 BoxCollider:
@@ -1904,6 +1921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 2
+  attributes: 00000000
 --- !u!54 &1217395039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2834,6 +2852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_hp: 2
+  attributes: 00000000
 --- !u!54 &1935874165
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3112,7 +3131,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0.2}
@@ -3128,7 +3147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8392cf23e4cf78640a47d9d93f936553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 617214289}
   hitArea: {fileID: 2003123884}
+  enchantments:
+  - {fileID: 11400000, guid: 3e5ffbeb7ee3818439be9d56a7622fa5, type: 2}
 --- !u!23 &2003123886
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3182,6 +3204,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003123882}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2083309462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083309464}
+  - component: {fileID: 2083309463}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2083309463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083309462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8d7f3a02493704d8657560bc806c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePrefab: {fileID: 8955639063215594922, guid: 898162d00040bd046b0f99bf69110e1f, type: 3}
+--- !u!4 &2083309464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083309462}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3196,3 +3263,4 @@ SceneRoots:
   - {fileID: 1935874169}
   - {fileID: 1834948323}
   - {fileID: 1935159183}
+  - {fileID: 2083309464}
