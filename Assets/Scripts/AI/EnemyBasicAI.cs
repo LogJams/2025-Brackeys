@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyBasicAI : MonoBehaviour {
 
     [Header("Put Objects with Trigger Colliders Here")]
@@ -19,7 +18,6 @@ public class EnemyBasicAI : MonoBehaviour {
     Weapon weapon;
     public float swingT = 0.15f;
 
-
     //set this to true when leashing
     bool ignoreAggro = false;
 
@@ -34,17 +32,26 @@ public class EnemyBasicAI : MonoBehaviour {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        aggroHandler.OnTrigger += OnAggro;
-        attackHandler.OnTrigger += OnAttack;
+        //add the aggro behavior if we have an AI trigger and navigation
+        if (aggroHandler != null && nav != null) {
+            aggroHandler.OnTrigger += OnAggro;
+        }
+        //add the attack behavior if we have an AI trigger and a weapon
+        if (attackHandler != null && weapon != null) {
+            attackHandler.OnTrigger += OnAttack;
+        }
         GetComponent<Vitality>().OnDeath += OnDeath;
         p0 = transform.position;
-        nav.SetDestination(p0);
+        //only do this if we move
+        if (nav != null) {
+            nav.SetDestination(p0);
+        }
     }
 
     // Update is called once per frame
     void Update() {
-        //make no decisions if we're busy attacking right now
-        if (busy) {
+        //make no decisions if we're busy attacking right now (and we are capable of moving!)
+        if (busy || nav==null) {
             return;
         }
 
@@ -82,8 +89,12 @@ public class EnemyBasicAI : MonoBehaviour {
     }
 
     void OnDeath(System.Object src, System.EventArgs e) {
-        aggroHandler.OnTrigger -= OnAggro;
-        attackHandler.OnTrigger -= OnAttack;
+        if (aggroHandler != null) {
+            aggroHandler.OnTrigger -= OnAggro;
+        }
+        if (attackHandler != null) {
+            attackHandler.OnTrigger -= OnAttack;
+        }
         GetComponent<Vitality>().OnDeath -= OnDeath;
     }
 
@@ -91,7 +102,9 @@ public class EnemyBasicAI : MonoBehaviour {
 
     //called when we update values in the inspector
     private void OnValidate() {
-        aggroHandler.GetComponent<SphereCollider>().radius = aggroRadius;
+        if (aggroHandler != null) {
+            aggroHandler.GetComponent<SphereCollider>().radius = aggroRadius;
+        }
     }
 
     IEnumerator SwingWeapon(float swingTime) {
