@@ -20,6 +20,8 @@ public class CameraFollow : MonoBehaviour {
 
     // Update is called once per frame
     void LateUpdate() {
-        transform.position = player.position + viewNormal * zoomDist;
+        if (player != null) {
+            transform.position = player.position + viewNormal * zoomDist;
+        }
     }
 }

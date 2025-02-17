@@ -1,20 +1,54 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Vitality : MonoBehaviour {
 
     public event System.EventHandler OnDeath;
+    public event System.EventHandler<EFFECTS> OnGainEffect;
+    public event System.EventHandler<EFFECTS> OnLoseEffect;
 
     public float max_hp = 2;
     private float hp;
 
+    public float hp {
+        get { return _hp; } 
+        private set { _hp = value;
+            if (hp <= 0) { 
+                OnDeath?.Invoke(this, System.EventArgs.Empty);
+                SceneManager.instance.OnTick -= OnTick;
+                Destroy(gameObject);
+            }
+        }
+    }
 
-    public void StatusEffect() {
-        //todo: implement
+    public List<ATTRIBUTE> attributes;
+    List<EFFECTS> statusEffects;
+
+
+    public void AddStatusEffect(EFFECTS effect) {
+        if (!statusEffects.Contains(effect)) {
+            Debug.Log(gameObject.name + " now suffers from " + effect + "!");
+            statusEffects.Add(effect);
+            OnGainEffect?.Invoke(this, effect);
+        }
     }
 
 
     private void Awake() {
         hp = max_hp;
+        statusEffects = new List<EFFECTS>();
+    }
+
+    private void Start() {
+        SceneManager.instance.OnTick += OnTick;
+    }
+
+    void OnTick(System.Object src, uint count) {
+        foreach (EFFECTS effect in statusEffects) {
+            int hpChange = SceneManager.instance.EffectHealthChange(effect);
+            hp += hpChange;
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -23,12 +57,12 @@ public class Vitality : MonoBehaviour {
         if (other.TryGetComponent(out weap)) {
             int dmg = weap.OnHit(this);
 
-            hp -= dmg;
-
-            if (hp <= 0) {
-                OnDeath?.Invoke(this.gameObject, System.EventArgs.Empty);
-                Destroy(gameObject);
+            if (statusEffects.Contains(EFFECTS.harmless)) {
+                dmg = 0;
+                statusEffects.Remove(EFFECTS.harmless);
             }
+
+            hp -= dmg;
         }
     }
 
