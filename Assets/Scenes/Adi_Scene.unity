@@ -433,8 +433,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 2003123885}
-  dashDuration: 0.2
-  dashSpeedMultiplier: 4
+  swingT: 0.13
+  dashDuration: 0.1
+  dashSpeedMultiplier: 10
 --- !u!114 &617214284
 MonoBehaviour:
   m_ObjectHideFlags: 0

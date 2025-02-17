@@ -5,6 +5,7 @@ public class PlayerInteractions : MonoBehaviour
 {
 
     public Weapon weapon;
+    public float swingT = 0.1f;
     public float dashDuration = 0.2f;  // How long the dash lasts
     public float dashSpeedMultiplier = 4.0f;  // How much faster the dash is
 
@@ -32,7 +33,7 @@ public class PlayerInteractions : MonoBehaviour
         if (Input.GetButtonUp("Swing") && !busy)
         {
             Debug.Log("Swing!");
-            StartCoroutine(SwingWeapon(0.5f));
+            StartCoroutine(SwingWeapon(swingT));
         }
 
         if (Input.GetButtonUp("Dash") && !busy)
