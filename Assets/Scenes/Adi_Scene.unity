@@ -1273,8 +1273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 2003123885}
   swingT: 0.13
-  dashDuration: 0.2
-  dashSpeedMultiplier: 10
+  dashDuration: 0.1
+  dashSpeedMultiplier: 20
 --- !u!114 &617214284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1689,8 +1689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieList:
   - {fileID: 1217395038}
-  - {fileID: 499396078}
-  - {fileID: 1935874164}
+  openSpeed: 4
 --- !u!65 &779979423
 BoxCollider:
   m_ObjectHideFlags: 0
