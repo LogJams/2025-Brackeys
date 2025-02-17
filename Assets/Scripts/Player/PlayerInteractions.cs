@@ -10,6 +10,7 @@ public class PlayerInteractions : MonoBehaviour
     public float dashSpeedMultiplier = 4.0f;  // How much faster the dash is
 
     bool busy = false;
+    bool dashing = false;
     private PlayerMovement playerMovement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +37,7 @@ public class PlayerInteractions : MonoBehaviour
             StartCoroutine(SwingWeapon(swingT));
         }
 
-        if (Input.GetButtonUp("Dash") && !busy)
+        if (Input.GetButton("Dash") && !dashing)
         {
             Debug.Log("Dash!");
             StartCoroutine(DashPlayer(dashSpeedMultiplier));
@@ -76,9 +77,9 @@ public class PlayerInteractions : MonoBehaviour
 
         IEnumerator DashPlayer(float dashSpeed)
         {
+            dashing = true;
             if (playerMovement == null) yield break;
 
-            busy = true;
 
             // Store the original speed
             float originalSpeed = playerMovement.speed;
@@ -92,7 +93,7 @@ public class PlayerInteractions : MonoBehaviour
             // Restore original speed
             playerMovement.speed = originalSpeed;
 
-            busy = false;
+            dashing = false;
         }
 
     }
