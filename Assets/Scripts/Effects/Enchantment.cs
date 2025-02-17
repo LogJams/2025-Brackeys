@@ -22,10 +22,10 @@ public struct Curse {
 
 [CreateAssetMenu(fileName = "Enchantment", menuName = "Scriptable Objects/Enchantment")]
 public class Enchantment : ScriptableObject {
-    public List<EFFECTS> effects;
 
-    public List<ATTRIBUTE> targets;
-
+    public TARGETS target;
+    public EFFECTS effect;
+    public ATTRIBUTE attribute;
 
     public List<Curse> curses;
 

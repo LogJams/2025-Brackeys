@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655aa9f7fd4952947836c5626aea63f8, type: 3}
   m_Name: Flaming
   m_EditorClassIdentifier: 
-  effects: 00000000
-  targets: 00000000
+  target: 1
+  effect: 0
+  attribute: 0
   curses:
   - trigger: 1
     target: 0
