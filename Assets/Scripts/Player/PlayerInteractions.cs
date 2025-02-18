@@ -227,7 +227,7 @@ public class PlayerInteractions : MonoBehaviour
             float speedMultiplier = dodgeCurve.Evaluate(t);
 
             // Calculate dodge velocity
-            Vector3 dodgeVelocity = direction * speed * speedMultiplier;
+            Vector3 dodgeVelocity = -1 * direction * speed * speedMultiplier;
 
             // If we were moving, blend with original velocity
             if (wasMoving)
