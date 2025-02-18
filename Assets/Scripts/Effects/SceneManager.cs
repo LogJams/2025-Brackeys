@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 [Serializable]
 public struct EffectMap {
@@ -71,6 +69,16 @@ public class SceneManager : MonoBehaviour {
             tickCount++;
             OnTick?.Invoke(this, tickCount);
         }
+
+
+        // exit and reload for testing
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            Application.Quit();
+        }
+        if (Input.GetKeyUp(KeyCode.F1)) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+
     }
 
 
