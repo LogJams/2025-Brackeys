@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour {
 
+
     //player properties
     public float swingT = 0.1f;
     public float dashDuration = 0.2f;  // How long the dash lasts
@@ -14,6 +15,18 @@ public class PlayerInteractions : MonoBehaviour {
     private PlayerMovement playerMovement;
 
     private GearManager equipment;
+
+    //interactions
+    public event System.EventHandler<IInteractable> OnInteractionStart;
+    public event System.EventHandler<IInteractable> OnInteractionEnd;
+
+
+    public event System.EventHandler<IInteractable> OnInteractionEvent;
+    public event System.EventHandler<IInteractable> OnInteractionClose;
+
+
+    private IInteractable currentInteraction = null;
+    bool interacting = false;
 
     private void Awake() {
         equipment = GetComponent<GearManager>();
@@ -36,6 +49,22 @@ public class PlayerInteractions : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        //interact by hitting E, it pauses everything else in update
+        if (Input.GetKeyDown(KeyCode.E) && currentInteraction != null && !busy) {
+            interacting = !interacting;
+
+            if (interacting) {
+                OnInteractionEvent?.Invoke(this, currentInteraction);
+                currentInteraction.Interact();
+            }
+            else {
+                currentInteraction.EndInteraction();
+                OnInteractionClose?.Invoke(this, currentInteraction);
+            }
+
+
+        }
+        if (interacting) return; //do nothing if we're in the middle of an interaction
 
 
         //todo: maybe we can play a "wind up" animation on button down, then swing on button up
@@ -107,6 +136,29 @@ public class PlayerInteractions : MonoBehaviour {
         playerMovement.speed = originalSpeed;
 
         dashing = false;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        IInteractable inter;
+        if (other.TryGetComponent(out inter)) {
+            currentInteraction = inter;
+            OnInteractionStart?.Invoke(this, inter);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        IInteractable inter;
+        if (other.TryGetComponent(out inter) && currentInteraction == inter) {
+            //if we're currently interacting
+            if (interacting) {
+                interacting = false;
+                currentInteraction.EndInteraction();
+            }
+            //clear out current interaction and notify the UI
+            currentInteraction = null;
+            OnInteractionEnd?.Invoke(this, inter);
+
+        }
     }
 
 }
