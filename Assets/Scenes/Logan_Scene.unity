@@ -1167,7 +1167,7 @@ Transform:
   m_GameObject: {fileID: 448324078}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19, y: 1, z: 0}
+  m_LocalPosition: {x: 19, y: 1, z: 10.8}
   m_LocalScale: {x: 2, y: 2, z: 18}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1684,7 +1684,42 @@ MonoBehaviour:
   attackHandler: {fileID: 0}
   aggroRadius: 4
   leash: 1
-  swingT: 0.15
+  windUpTime: 0.2
+  swingTime: 0.15
+  recoveryTime: 0.2
+  swingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.8
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &695366856
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3085,7 +3120,42 @@ MonoBehaviour:
   attackHandler: {fileID: 0}
   aggroRadius: 4
   leash: 1
-  swingT: 0.15
+  windUpTime: 0.2
+  swingTime: 0.15
+  recoveryTime: 0.2
+  swingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.8
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1325453730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,7 +4192,42 @@ MonoBehaviour:
   attackHandler: {fileID: 0}
   aggroRadius: 4
   leash: 1
-  swingT: 0.15
+  windUpTime: 0.2
+  swingTime: 0.15
+  recoveryTime: 0.2
+  swingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.8
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &1962926874
 Rigidbody:
   m_ObjectHideFlags: 0

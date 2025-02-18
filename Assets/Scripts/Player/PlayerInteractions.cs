@@ -14,13 +14,6 @@ public class PlayerInteractions : MonoBehaviour
         new Keyframe(1, 1, 0.5f, 0)       // Sharper end
     );
 
-<<<<<<< Updated upstream
-
-    //player properties
-    public float swingT = 0.1f;
-    public float dashDuration = 0.2f;  // How long the dash lasts
-    public float dashSpeedMultiplier = 4.0f;  // How much faster the dash is
-=======
     [Header("Dodge Properties")]
     public float dodgeDuration = 0.25f;    // Quick dodge duration
     public float baseDodgeSpeed = 16f;     // Base dodge speed
@@ -41,14 +34,12 @@ public class PlayerInteractions : MonoBehaviour
     private Vector3 currentDodgeVelocity;
     private float currentMoveSpeed;
     private AttackPhase currentAttackPhase = AttackPhase.None;
->>>>>>> Stashed changes
 
     private PlayerMovement playerMovement;
     private GearManager equipment;
     private CharacterController characterController;
     private Vector3 dodgeDirection;
 
-<<<<<<< Updated upstream
     //interactions
     public event System.EventHandler<IInteractable> OnInteractionStart;
     public event System.EventHandler<IInteractable> OnInteractionEnd;
@@ -61,15 +52,13 @@ public class PlayerInteractions : MonoBehaviour
     private IInteractable currentInteraction = null;
     bool interacting = false;
 
-    private void Awake() {
-        equipment = GetComponent<GearManager>();
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start() {
+
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-=======
+
     private enum AttackPhase
->>>>>>> Stashed changes
     {
         None,
         WindUp,
@@ -83,16 +72,23 @@ public class PlayerInteractions : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         characterController = GetComponent<CharacterController>();
 
-<<<<<<< Updated upstream
-        //interact by hitting E, it pauses everything else in update
-        if (Input.GetKeyDown(KeyCode.E) && currentInteraction != null && !busy) {
+
+        if (playerMovement == null || characterController == null)
+        {
+            Debug.LogError("Required components missing on player!");
+        }
+    }
+
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.E) && currentInteraction != null && !isAttacking && !isDodging) {
             interacting = !interacting;
 
             if (interacting) {
                 OnInteractionEvent?.Invoke(this, currentInteraction);
                 currentInteraction.Interact();
-            }
-            else {
+            } else {
                 currentInteraction.EndInteraction();
                 OnInteractionClose?.Invoke(this, currentInteraction);
             }
@@ -100,16 +96,8 @@ public class PlayerInteractions : MonoBehaviour
 
         }
         if (interacting) return; //do nothing if we're in the middle of an interaction
-=======
-        if (playerMovement == null || characterController == null)
-        {
-            Debug.LogError("Required components missing on player!");
-        }
-    }
->>>>>>> Stashed changes
 
-    void Update()
-    {   // Store the current movement direction for dodge calculations
+        // Store the current movement direction for dodge calculations
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         if (moveInput.magnitude > 0.1f)
         {
@@ -263,7 +251,7 @@ public class PlayerInteractions : MonoBehaviour
         canDodge = true;
     }
 
-<<<<<<< Updated upstream
+
     private void OnTriggerEnter(Collider other) {
         IInteractable inter;
         if (other.TryGetComponent(out inter)) {
@@ -287,7 +275,6 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-=======
     private IEnumerator ApplyInvincibilityFrames()
     {
         // TODO: Implement your invincibility logic here
@@ -302,116 +289,4 @@ public class PlayerInteractions : MonoBehaviour
         equipment.GetWeapon().transform.parent.localRotation =
             equipment.GetWeapon().transform.parent.localRotation;
     }
->>>>>>> Stashed changes
 }
-
-//public class PlayerInteractions : MonoBehaviour {
-
-//    //player properties
-//    public float swingT = 0.1f;
-//    public float dashDuration = 0.2f;  // How long the dash lasts
-//    public float dashSpeedMultiplier = 4.0f;  // How much faster the dash is
-
-//    bool busy = false;
-//    bool dashing = false;
-//    private PlayerMovement playerMovement;
-
-//    private GearManager equipment;
-
-//    private void Awake() {
-//        equipment = GetComponent<GearManager>();
-//    }
-
-//    // Start is called once before the first execution of Update after the MonoBehaviour is created
-//    void Start()
-//    {
-//        // Get reference to the PlayerMovement component
-//        playerMovement = GetComponent<PlayerMovement>();
-
-//        if (playerMovement == null)
-//        {
-//            Debug.LogError("PlayerMovement component not found!");
-//        }
-
-
-//    }
-
-//    // Update is called once per frame
-//    void Update() {
-
-
-
-//        //todo: maybe we can play a "wind up" animation on button down, then swing on button up
-//        if (Input.GetButtonUp("Swing") && !busy) {
-//            StartCoroutine(SwingWeapon(swingT));
-//        }
-
-//        if (Input.GetButton("Dash") && !dashing) {
-//            StartCoroutine(DashPlayer(dashSpeedMultiplier));
-//        }
-
-
-//        if (Input.GetKeyDown(KeyCode.Alpha1) && !busy) {
-//            equipment.CycleWeapon();
-//        }
-//        if (Input.GetKeyDown(KeyCode.Alpha2) && !busy) {
-//            equipment.CycleArmor();
-//        }
-
-//    }
-
-//    //TODO: we can probably put swing time as a property of the individual weapons
-//    IEnumerator SwingWeapon(float swingTime)
-//    {
-//        busy = true;
-//        float t0 = Time.time;
-//        Quaternion initialRotation = equipment.GetWeapon().transform.parent.localRotation;
-
-//        equipment.GetWeapon().StartSwinging();
-
-//        while (Time.time - t0 <= swingTime)
-//        {
-
-//            equipment.GetWeapon().transform.parent.localRotation = Quaternion.Lerp(initialRotation, Quaternion.AngleAxis(-90f, Vector3.up), (Time.time - t0) / swingTime);
-//            yield return null;
-//        }
-
-//        equipment.GetWeapon().StopSwinging();
-
-//        t0 = Time.time;
-//        while (Time.time - t0 <= swingTime / 2f)
-//        {
-
-//            equipment.GetWeapon().transform.parent.localRotation = Quaternion.Lerp(Quaternion.AngleAxis(-90f, Vector3.up), initialRotation, 2 * (Time.time - t0) / swingTime);
-//            yield return null;
-//        }
-
-//        equipment.GetWeapon().transform.parent.localRotation = initialRotation;
-//        busy = false;
-//        yield return null;
-//    }
-
-//    IEnumerator DashPlayer(float dashSpeed)
-//    {
-//        dashing = true;
-//        if (playerMovement == null) yield break;
-
-
-//        // Store the original speed
-//        float originalSpeed = playerMovement.speed;
-
-//        // Set dash speed
-//        playerMovement.speed *= dashSpeed;
-
-//        // Wait for dash duration
-//        yield return new WaitForSeconds(dashDuration);
-
-//        // Restore original speed
-//        playerMovement.speed = originalSpeed;
-
-//        dashing = false;
-//    }
-
-//}
-
-
