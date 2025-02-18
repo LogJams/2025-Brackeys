@@ -16,7 +16,17 @@ public class EnemyBasicAI : MonoBehaviour {
 
     [Header("Weapon References")]
     Weapon weapon;
-    public float swingT = 0.15f;
+
+    [Header("Attack Properties")]
+    public float windUpTime = 0.2f;       // Reduced from 0.3f for snappier response
+    public float swingTime = 0.15f;       // Reduced from 0.2f
+    public float recoveryTime = 0.2f;     // Reduced from 0.25f
+    public AnimationCurve swingCurve = new AnimationCurve(  // Adjusted curve for more impact
+        new Keyframe(0, 0, 3, 3),         // Faster initial movement
+        new Keyframe(0.4f, 0.8f, 1, 1),   // Earlier peak
+        new Keyframe(1, 1, 0.5f, 0)       // Sharper end
+    );
+
 
     //set this to true when leashing
     bool ignoreAggro = false;
@@ -84,7 +94,7 @@ public class EnemyBasicAI : MonoBehaviour {
 
     void OnAttack(System.Object src, Vector3 location) {
         if (!busy) {
-            StartCoroutine(SwingWeapon(swingT));
+            StartCoroutine(ExecuteAttack());
         }
     }
 
@@ -98,7 +108,49 @@ public class EnemyBasicAI : MonoBehaviour {
         GetComponent<Vitality>().OnDeath -= OnDeath;
     }
 
+    private IEnumerator ExecuteAttack()
+    {
+        busy = true;
+        Quaternion initialRotation = weapon.transform.parent.localRotation;
+        Quaternion targetRotation = Quaternion.AngleAxis(60f, Vector3.up);
 
+        // Wind-up phase
+        float t0 = Time.time;
+        while (Time.time - t0 <= windUpTime)
+        {
+            float t = (Time.time - t0) / windUpTime;
+            weapon.transform.parent.localRotation =
+                Quaternion.Lerp(initialRotation, Quaternion.AngleAxis(-80f, Vector3.up), t);
+            yield return null;
+        }
+
+        // Active swing phase
+        weapon.StartSwinging();
+        t0 = Time.time;
+        while (Time.time - t0 <= swingTime)
+        {
+            float t = (Time.time - t0) / swingTime;
+            float curveValue = swingCurve.Evaluate(t);
+            weapon.transform.parent.localRotation =
+                Quaternion.Lerp(Quaternion.AngleAxis(-80f, Vector3.up), targetRotation, curveValue);
+            yield return null;
+        }
+        weapon.StopSwinging();
+
+        // Recovery phase with faster initial return
+        t0 = Time.time;
+        while (Time.time - t0 <= recoveryTime)
+        {
+            float t = (Time.time - t0) / recoveryTime;
+            // Added smoothstep for faster initial return
+            float smoothT = t * t * (3f - 2f * t);
+            weapon.transform.parent.localRotation =
+                Quaternion.Lerp(targetRotation, initialRotation, smoothT);
+            busy = false;
+            yield return null;
+        }
+        
+    }
 
     //called when we update values in the inspector
     private void OnValidate() {
@@ -107,32 +159,34 @@ public class EnemyBasicAI : MonoBehaviour {
         }
     }
 
-    IEnumerator SwingWeapon(float swingTime) {
-        busy = true;
-        float t0 = Time.time;
-        Quaternion initialRotation = weapon.transform.parent.localRotation;
 
-        weapon.StartSwinging();
 
-        while (Time.time - t0 <= swingTime) {
+    //IEnumerator SwingWeapon(float swingTime) {
+    //    busy = true;
+    //    float t0 = Time.time;
+    //    Quaternion initialRotation = weapon.transform.parent.localRotation;
 
-            weapon.transform.parent.localRotation = Quaternion.Lerp(initialRotation, Quaternion.AngleAxis(-90f, Vector3.up), (Time.time - t0) / swingTime);
-            yield return null;
-        }
+    //    weapon.StartSwinging();
 
-        weapon.StopSwinging();
+    //    while (Time.time - t0 <= swingTime) {
 
-        t0 = Time.time;
-        while (Time.time - t0 <= swingTime / 2f) {
+    //        weapon.transform.parent.localRotation = Quaternion.Lerp(initialRotation, Quaternion.AngleAxis(-90f, Vector3.up), (Time.time - t0) / swingTime);
+    //        yield return null;
+    //    }
 
-            weapon.transform.parent.localRotation = Quaternion.Lerp(Quaternion.AngleAxis(-90f, Vector3.up), initialRotation, 2 * (Time.time - t0) / swingTime);
-            yield return null;
-        }
+    //    weapon.StopSwinging();
 
-        weapon.transform.parent.localRotation = initialRotation;
-        yield return new WaitForSeconds(0.5f);
+    //    t0 = Time.time;
+    //    while (Time.time - t0 <= swingTime / 2f) {
 
-        busy = false;
-        yield return null;
-    }
+    //        weapon.transform.parent.localRotation = Quaternion.Lerp(Quaternion.AngleAxis(-90f, Vector3.up), initialRotation, 2 * (Time.time - t0) / swingTime);
+    //        yield return null;
+    //    }
+
+    //    weapon.transform.parent.localRotation = initialRotation;
+    //    yield return new WaitForSeconds(0.5f);
+
+    //    busy = false;
+    //    yield return null;
+    //}
 }
