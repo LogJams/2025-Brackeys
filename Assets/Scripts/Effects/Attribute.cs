@@ -2,5 +2,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ATTRIBUTE {
-    ANY, Flamable, Red
+    ANY, Flamable, Red, Shiny, Healthy
 }

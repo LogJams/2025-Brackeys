@@ -8,6 +8,9 @@ public class Vitality : MonoBehaviour {
     public event System.EventHandler<EFFECTS> OnGainEffect;
     public event System.EventHandler<EFFECTS> OnLoseEffect;
 
+    public event System.EventHandler OnAttributeChange;
+
+
     public event System.EventHandler<float> OnDamage;
     public event System.EventHandler<float> OnHeal;
 
@@ -48,6 +51,16 @@ public class Vitality : MonoBehaviour {
                 SceneManager.instance.OnTick -= OnTick;
                 Destroy(gameObject);
             }
+            if (hp >= max_hp/2 && !baseAttributes.Contains(ATTRIBUTE.Healthy)) {
+                baseAttributes.Add(ATTRIBUTE.Healthy);
+                currentAttributes.Add(ATTRIBUTE.Healthy);
+                OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
+            }
+            if (hp < max_hp/2 && baseAttributes.Contains(ATTRIBUTE.Healthy)) {
+                baseAttributes.Remove(ATTRIBUTE.Healthy);
+                currentAttributes.Remove(ATTRIBUTE.Healthy);
+                OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
+            }
         }
     }
 
@@ -73,14 +86,15 @@ public class Vitality : MonoBehaviour {
 
 
     private void Awake() {
-        hp = max_hp;
+        currentAttributes = new HashSet<ATTRIBUTE>();
+        currentAttributes.AddRange(baseAttributes);
+        hp = max_hp; // this sets the HEALTHY attribute & calls the event
         statusEffects = new List<EFFECTS>();
         statusTimer = new Dictionary<EFFECTS, int>();
         if (equipment != null) {
             equipment.OnArmorChange += OnArmorChange;
+            equipment.OnWeaponChange += OnWeaponChange;
         }
-        currentAttributes = new HashSet<ATTRIBUTE>();
-        currentAttributes.AddRange(baseAttributes);
     }
 
     private void Start() {
@@ -94,10 +108,62 @@ public class Vitality : MonoBehaviour {
                 currentAttributes.Remove(atb);
             }
         }
+        UpdateWeaponBenefits(previous.Item1);
         //add attributes from the new armor + base in case we deleted them
-        currentAttributes.AddRange(equipment.GetArmor().attributes);
-        currentAttributes.AddRange(baseAttributes);
+        AddAttributes(equipment.GetWeapon(), equipment.GetArmor());
     }
+
+    public void OnWeaponChange(System.Object src, (Weapon, Armor) previous) {
+        //delete all attributes from the old armor
+        foreach (var atb in previous.Item2.attributes) {
+            if (currentAttributes.Contains(atb)) {
+                currentAttributes.Remove(atb);
+            }
+        }
+        RemoveWeaponBenefits(previous.Item1);
+        //add attributes from the new armor + base in case we deleted them
+        AddAttributes(equipment.GetWeapon(), equipment.GetArmor());
+    }
+
+    void UpdateWeaponBenefits(Weapon weapon) {
+        foreach (var Ench in weapon.enchantments) {
+            foreach (var bens in Ench.benefits) {
+                //update this to remove the status effect if we've lost the required attribute
+                if (statusEffects.Contains(bens.effect)) {
+                //    statusEffects.Remove(bens.effect);
+                //    OnLoseEffect?.Invoke(this, bens.effect);
+                }
+            }
+        }
+    }
+
+
+    void RemoveWeaponBenefits(Weapon weapon) {
+        foreach (var Ench in weapon.enchantments) {
+            foreach (var bens in Ench.benefits) {
+                if (statusEffects.Contains(bens.effect)) {
+                    statusEffects.Remove(bens.effect);
+                    OnLoseEffect?.Invoke(this, bens.effect);
+                }
+            }
+        }
+    }
+
+
+    void AddAttributes(Weapon weapon, Armor armor) {
+        currentAttributes.AddRange(armor.attributes);
+        currentAttributes.AddRange(baseAttributes);
+        foreach (Enchantment ench in weapon.enchantments) {
+            foreach (var bens in ench.benefits) {
+                if (currentAttributes.Contains(bens.trigger)) {
+                    AddStatusEffect(bens.effect, -1); //add a permenant effect
+                }
+            }
+        }
+        OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
+    }
+
+
 
     void OnTick(System.Object src, uint count) {
         foreach (EFFECTS effect in statusEffects) {

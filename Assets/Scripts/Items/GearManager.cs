@@ -37,7 +37,7 @@ public class GearManager : MonoBehaviour {
     public void CycleWeapon() {
         Weapon oldWeapon = weapons[weaponIndex];
         weaponIndex = (weaponIndex + 1) % weapons.Count;
-        for (int i = 0; i < armors.Count; i++) {
+        for (int i = 0; i < weapons.Count; i++) {
             weapons[i].gameObject.SetActive(i == weaponIndex);
         }
         OnWeaponChange?.Invoke(this, (oldWeapon, armors[armorIndex]));
