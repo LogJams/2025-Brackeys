@@ -107,7 +107,7 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         // Cycle weapon
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDodging)
+        if (Input.GetKeyDown(KeyCode.A) && !isAttacking && !isDodging)
         {
             equipment.CycleWeapon();
         }
@@ -125,7 +125,7 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         // Improved Dodge Input handling
-        if (Input.GetButtonDown("Dash") && canDodge)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && canDodge)
         {
             Vector3 dodgeDirection;
             float dodgeSpeed = baseDodgeSpeed;
@@ -133,13 +133,13 @@ public class PlayerInteractions : MonoBehaviour
             // Determine dodge direction and speed based on current state
             if (moveInput.magnitude > 0.1f)
             {
-                // Use the current movement direction and add speed bonus
+                // Reverse the current movement direction and add speed bonus
                 dodgeDirection = transform.forward;
                 currentMoveSpeed = playerMovement.speed;
             }
             else
             {
-                // If not moving, dodge in facing direction
+                // If not moving, dodge in the direction opposite to facing
                 dodgeDirection = transform.forward;
                 currentMoveSpeed = 0f;
             }
