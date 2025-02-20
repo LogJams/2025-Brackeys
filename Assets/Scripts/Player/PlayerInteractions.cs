@@ -215,7 +215,7 @@ public class PlayerInteractions : MonoBehaviour
         playerMovement.enabled = false;
 
         //check confidence for direction
-        int dir = GetComponent<Vitality>().QueryStatusEffect(EFFECTS.confident) ? -1 : 1;
+        int dir = GetComponent<Vitality>().QueryStatusEffect(EFFECTS.confident) ? -2 : 1;
 
         // Start invincibility
         StartCoroutine(ApplyInvincibilityFrames());

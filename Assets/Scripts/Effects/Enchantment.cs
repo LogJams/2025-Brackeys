@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EFFECTS {
-    fire, harmless, heal, crit, confident
+    fire, harmless, heal, crit, confident, ethereal
 }
 
 public enum TARGETS{

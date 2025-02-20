@@ -56,7 +56,6 @@ public class Vitality : MonoBehaviour {
                 currentAttributes.Add(ATTRIBUTE.Healthy);
                 if (GetComponent<GearManager>() != null) {
                     UpdateWeaponBenefits(GetComponent<GearManager>().GetWeapon());
-                    Debug.Log("Gained Healthy!");
                 }
                 OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
             }
@@ -92,6 +91,16 @@ public class Vitality : MonoBehaviour {
         }
         if (!statusTimer.ContainsKey(effect)) {
             statusTimer.Add(effect, duration);
+        }
+    }
+
+    public void RemoveStatusEffect(EFFECTS effect) {
+        if (statusEffects.Contains(effect)) {
+            statusEffects.Remove(effect);
+            OnLoseEffect?.Invoke(this, effect);
+        }
+        if (statusTimer.ContainsKey(effect)) {
+            statusTimer.Remove(effect);
         }
     }
 
@@ -207,6 +216,7 @@ public class Vitality : MonoBehaviour {
        
        float dmg = SceneManager.instance.HandleCombat(weap, this);
 
+
        if (statusEffects.Contains(EFFECTS.harmless)) {
            dmg = 0;
            statusEffects.Remove(EFFECTS.harmless);
@@ -219,6 +229,11 @@ public class Vitality : MonoBehaviour {
             statusTimer.Remove(EFFECTS.crit);
             OnLoseEffect?.Invoke(this, EFFECTS.crit);
        }
+        if (statusEffects.Contains(EFFECTS.ethereal)) {
+            dmg = 0;
+            Debug.Log("Spooky ghost!!");
+        }
+
 
        hp -= dmg;
        
