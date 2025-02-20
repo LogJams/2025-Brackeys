@@ -54,11 +54,18 @@ public class Vitality : MonoBehaviour {
             if (hp >= max_hp/2 && !baseAttributes.Contains(ATTRIBUTE.Healthy)) {
                 baseAttributes.Add(ATTRIBUTE.Healthy);
                 currentAttributes.Add(ATTRIBUTE.Healthy);
+                if (GetComponent<GearManager>() != null) {
+                    UpdateWeaponBenefits(GetComponent<GearManager>().GetWeapon());
+                    Debug.Log("Gained Healthy!");
+                }
                 OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
             }
             if (hp < max_hp/2 && baseAttributes.Contains(ATTRIBUTE.Healthy)) {
                 baseAttributes.Remove(ATTRIBUTE.Healthy);
                 currentAttributes.Remove(ATTRIBUTE.Healthy);
+                if (GetComponent<GearManager>() != null) {
+                    UpdateWeaponBenefits(GetComponent<GearManager>().GetWeapon());
+                }
                 OnAttributeChange?.Invoke(this, System.EventArgs.Empty);
             }
         }
@@ -67,6 +74,10 @@ public class Vitality : MonoBehaviour {
 
     public List<EFFECTS> GetEffects() {
         return statusEffects;
+    }
+
+    public bool QueryStatusEffect(EFFECTS eff) {
+        return statusEffects.Contains(eff);
     }
 
     public List<ATTRIBUTE> GetAttributes() {
@@ -88,7 +99,6 @@ public class Vitality : MonoBehaviour {
     private void Awake() {
         currentAttributes = new HashSet<ATTRIBUTE>();
         currentAttributes.AddRange(baseAttributes);
-        hp = max_hp; // this sets the HEALTHY attribute & calls the event
         statusEffects = new List<EFFECTS>();
         statusTimer = new Dictionary<EFFECTS, int>();
         if (equipment != null) {
@@ -99,6 +109,7 @@ public class Vitality : MonoBehaviour {
 
     private void Start() {
         SceneManager.instance.OnTick += OnTick;
+        hp = max_hp; // this sets the HEALTHY attribute & calls the event
     }
 
     public void OnArmorChange(System.Object src, (Weapon, Armor) previous) {
@@ -128,10 +139,17 @@ public class Vitality : MonoBehaviour {
     void UpdateWeaponBenefits(Weapon weapon) {
         foreach (var Ench in weapon.enchantments) {
             foreach (var bens in Ench.benefits) {
+                //add any status effects that we have the attribute for
+                 if (currentAttributes.Contains(bens.trigger) && !statusEffects.Contains(bens.effect)) {
+                    statusEffects.Add(bens.effect);
+                    statusTimer.Add(bens.effect,-1);
+                    OnGainEffect?.Invoke(this, bens.effect);
+                }
                 //update this to remove the status effect if we've lost the required attribute
-                if (statusEffects.Contains(bens.effect)) {
-                //    statusEffects.Remove(bens.effect);
-                //    OnLoseEffect?.Invoke(this, bens.effect);
+                if (!currentAttributes.Contains(bens.trigger) && statusEffects.Contains(bens.effect)) {
+                    statusEffects.Remove(bens.effect);
+                    statusTimer.Remove(bens.effect);
+                    OnLoseEffect?.Invoke(this, bens.effect);
                 }
             }
         }
@@ -143,6 +161,7 @@ public class Vitality : MonoBehaviour {
             foreach (var bens in Ench.benefits) {
                 if (statusEffects.Contains(bens.effect)) {
                     statusEffects.Remove(bens.effect);
+                    statusTimer.Remove(bens.effect);
                     OnLoseEffect?.Invoke(this, bens.effect);
                 }
             }
@@ -166,9 +185,9 @@ public class Vitality : MonoBehaviour {
 
 
     void OnTick(System.Object src, uint count) {
+        int hpChange = 0;
         foreach (EFFECTS effect in statusEffects) {
-            int hpChange = SceneManager.instance.EffectHealthChange(effect);
-            hp += hpChange;
+            hpChange += SceneManager.instance.EffectHealthChange(effect);
             statusTimer[effect]--; //decrease our timer for this effect
         }
         //remove anything that is exactly 0
@@ -181,7 +200,7 @@ public class Vitality : MonoBehaviour {
                 OnLoseEffect?.Invoke(this, effect);
             }
         }
-
+        hp += hpChange; //this modifies the effect list
     }
 
     public void Attacked(Weapon weap) {
@@ -193,6 +212,12 @@ public class Vitality : MonoBehaviour {
            statusEffects.Remove(EFFECTS.harmless);
            statusTimer.Remove(EFFECTS.harmless);
            OnLoseEffect?.Invoke(this, EFFECTS.harmless);
+       }
+       if (statusEffects.Contains(EFFECTS.crit)) {
+            dmg *= 2;
+            statusEffects.Remove(EFFECTS.crit);
+            statusTimer.Remove(EFFECTS.crit);
+            OnLoseEffect?.Invoke(this, EFFECTS.crit);
        }
 
        hp -= dmg;

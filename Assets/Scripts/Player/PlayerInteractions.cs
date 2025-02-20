@@ -214,6 +214,9 @@ public class PlayerInteractions : MonoBehaviour
         // Temporarily disable normal movement
         playerMovement.enabled = false;
 
+        //check confidence for direction
+        int dir = GetComponent<Vitality>().QueryStatusEffect(EFFECTS.confident) ? -1 : 1;
+
         // Start invincibility
         StartCoroutine(ApplyInvincibilityFrames());
 
@@ -237,7 +240,7 @@ public class PlayerInteractions : MonoBehaviour
             }
 
             // Apply movement
-            characterController.Move(dodgeVelocity * Time.deltaTime);
+            characterController.Move(dir * dodgeVelocity * Time.deltaTime);
 
             yield return null;
         }

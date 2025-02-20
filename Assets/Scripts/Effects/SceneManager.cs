@@ -102,7 +102,7 @@ public class SceneManager : MonoBehaviour {
     public void OnLoseEffect(System.Object source, EFFECTS effect) {
         // "harmless" is an effect that makes the current attack not damage the target
         // we don't create any effects, so we can just exit out instead
-        if (effect == EFFECTS.harmless) {
+        if (effect == EFFECTS.harmless || effect == EFFECTS.crit) {
             return;
         }
 
