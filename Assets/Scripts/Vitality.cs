@@ -234,9 +234,7 @@ public class Vitality : MonoBehaviour {
             Debug.Log("Spooky ghost!!");
         }
 
-
        hp -= dmg;
-       
     }
 
 }

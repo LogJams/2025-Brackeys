@@ -86,11 +86,17 @@ public class PlayerInteractions : MonoBehaviour
             interacting = !interacting;
 
             if (interacting) {
+                Debug.Log("Start interaction event!");
                 OnInteractionEvent?.Invoke(this, currentInteraction);
                 currentInteraction.Interact();
             } else {
-                currentInteraction.EndInteraction();
-                OnInteractionClose?.Invoke(this, currentInteraction);
+                if (currentInteraction.EndInteraction()) { //true if we destroy it
+                    OnInteractionEnd(this, null);
+                    currentInteraction = null;
+                }
+                else { //we could interact again!
+                    OnInteractionClose?.Invoke(this, currentInteraction);
+                }
             }
 
 
@@ -107,7 +113,7 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         // Cycle weapon
-        if (Input.GetKeyDown(KeyCode.A) && !isAttacking && !isDodging)
+        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking && !isDodging)
         {
             equipment.CycleWeapon();
         }

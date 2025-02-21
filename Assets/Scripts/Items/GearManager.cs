@@ -7,10 +7,12 @@ public class GearManager : MonoBehaviour {
     public event System.EventHandler<(Weapon, Armor)> OnWeaponChange;
     public event System.EventHandler<(Weapon, Armor)> OnArmorChange;
 
+    [Header("Ref. to Empty Object Holding Weapons")]
     public Transform weaponSlot;
     List<Weapon> weapons;
     int weaponIndex = 0;
 
+    [Header("Ref. to Empty Object Holding Armor")]
     public Transform armorSlot;
     int armorIndex = 0;
     List<Armor> armors;
@@ -30,17 +32,27 @@ public class GearManager : MonoBehaviour {
         for (int i = 0; i < weapons.Count; i++) {
             weapons[i].gameObject.SetActive(i == weaponIndex);
         }
+        //unlock initially equipped weapon
+        UnlockTracker.instance.UnlockWeapon(weapons[weaponIndex]);
     }
 
 
 
     public void CycleWeapon() {
-        Weapon oldWeapon = weapons[weaponIndex];
+        int prevWeapon = weaponIndex; //get ref to weaponIndex then increment to ntext
+        Weapon oldWeapon = weapons[prevWeapon];
+
         weaponIndex = (weaponIndex + 1) % weapons.Count;
-        for (int i = 0; i < weapons.Count; i++) {
-            weapons[i].gameObject.SetActive(i == weaponIndex);
+        while (!UnlockTracker.instance.IsWeaponUnlocked(weapons[weaponIndex])) {
+            weaponIndex = (weaponIndex + 1) % weapons.Count;
         }
-        OnWeaponChange?.Invoke(this, (oldWeapon, armors[armorIndex]));
+        //only do this if we actually switch
+        if (prevWeapon != weaponIndex) {
+            for (int i = 0; i < weapons.Count; i++) {
+                weapons[i].gameObject.SetActive(i == weaponIndex);
+            }
+            OnWeaponChange?.Invoke(this, (oldWeapon, armors[armorIndex]));
+        }
     }
 
     public void CycleArmor() {

@@ -10,6 +10,10 @@ public class UIDisplayText : MonoBehaviour {
         foreach (var interactable in FindObjectsByType<ReadableObject>(FindObjectsSortMode.None)) {
             interactable.OnReadObject += OnDisplayText;
         }
+        foreach (var interactable in FindObjectsByType<PickableObject>(FindObjectsSortMode.None)) {
+            interactable.OnPickObject += OnDisplayText;
+        }
+
 
         displayText.gameObject.SetActive(false);
 

@@ -8,7 +8,7 @@ public interface IInteractable {
 
     public void Interact();
 
-    public void EndInteraction();
+    public bool EndInteraction(); //true if destroyed
 
     public string GetDescription();
 

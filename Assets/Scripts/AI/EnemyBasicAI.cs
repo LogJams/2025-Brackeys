@@ -146,10 +146,10 @@ public class EnemyBasicAI : MonoBehaviour {
             float smoothT = t * t * (3f - 2f * t);
             weapon.transform.parent.localRotation =
                 Quaternion.Lerp(targetRotation, initialRotation, smoothT);
-            busy = false;
             yield return null;
         }
-        
+        busy = false; //shouldn't this be outside the loop so we can't immediately start another attack?
+
     }
 
     //called when we update values in the inspector

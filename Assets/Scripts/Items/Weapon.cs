@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour, Equipment {
     public Collider hitArea;
 
 
-    Vitality owner;
+    protected Vitality owner;
 
     public override string ToString() {
         return enchantments[0].name + "blade";
@@ -44,12 +44,12 @@ public class Weapon : MonoBehaviour, Equipment {
     }
 
 
-    public void StartSwinging() {
+    public virtual void StartSwinging() {
         hitArea.enabled = true;
     }
 
 
-    public void StopSwinging() {
+    public virtual void StopSwinging() {
         hitArea.enabled = false;
     }
 
