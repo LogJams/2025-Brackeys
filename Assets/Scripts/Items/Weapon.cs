@@ -33,13 +33,11 @@ public class Weapon : MonoBehaviour, Equipment {
 
     void OnTriggerEnter(Collider other) {
         Vitality toHit = null;
-
         //make sure 1. it's got a vitality, 2. it's not ourselves, and 3. it's not an AI trigger
         if (other.TryGetComponent(out toHit) && toHit != owner && other.gameObject.layer != LayerMask.NameToLayer("AI Trigger")) {
             /////// disable hitArea and handle enchantment/combat in the Vitality
-            hitArea.enabled = false;
+            //hitArea.enabled = false;
             toHit.Attacked(this);
-
         }
     }
 
