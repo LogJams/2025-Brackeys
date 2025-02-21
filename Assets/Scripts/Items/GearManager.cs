@@ -32,10 +32,12 @@ public class GearManager : MonoBehaviour {
         for (int i = 0; i < weapons.Count; i++) {
             weapons[i].gameObject.SetActive(i == weaponIndex);
         }
+    }
+
+    void Start() {
         //unlock initially equipped weapon
         UnlockTracker.instance.UnlockWeapon(weapons[weaponIndex]);
     }
-
 
 
     public void CycleWeapon() {

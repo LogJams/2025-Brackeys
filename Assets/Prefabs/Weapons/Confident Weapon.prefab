@@ -104,6 +104,7 @@ MonoBehaviour:
   enchantments:
   - {fileID: 11400000, guid: 340f5b5cbda0e574daf6d7bfc11c12bc, type: 2}
   baseDamage: 1
+  areaOfEffect: 0
   hitArea: {fileID: 7924631180094906109}
 --- !u!65 &7924631180094906109
 BoxCollider:

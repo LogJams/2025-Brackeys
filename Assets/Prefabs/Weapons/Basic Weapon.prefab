@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enchantments: []
   baseDamage: 1
+  areaOfEffect: 0
   hitArea: {fileID: 7924631180094906109}
 --- !u!65 &7924631180094906109
 BoxCollider:

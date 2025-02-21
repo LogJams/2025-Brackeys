@@ -322,7 +322,7 @@ MonoBehaviour:
   snappyStopThreshold: 0.1
   smoothRotations: 0
   rotation_responsiveness: 10
-  speed: 12
+  speed: 6
 --- !u!33 &7921997671709423336
 MeshFilter:
   m_ObjectHideFlags: 0

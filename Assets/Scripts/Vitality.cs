@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -48,8 +49,10 @@ public class Vitality : MonoBehaviour {
             //fire another event if we die
             if (hp <= 0) { 
                 OnDeath?.Invoke(this, System.EventArgs.Empty);
-                SceneManager.instance.OnTick -= OnTick;
-                Destroy(gameObject);
+                if (!gameObject.CompareTag("Player")) {
+                    Destroy(gameObject);
+                    SceneManager.instance.OnTick -= OnTick;
+                }
             }
             if (hp >= max_hp/2 && !baseAttributes.Contains(ATTRIBUTE.Healthy)) {
                 baseAttributes.Add(ATTRIBUTE.Healthy);
@@ -70,6 +73,13 @@ public class Vitality : MonoBehaviour {
         }
     }
 
+    public void Reset() {
+        hp = max_hp;
+        List<EFFECTS> stats = new List<EFFECTS>(statusEffects);
+        foreach (var st in stats) {
+            RemoveStatusEffect(st);
+        }
+    }
 
     public List<EFFECTS> GetEffects() {
         return statusEffects;

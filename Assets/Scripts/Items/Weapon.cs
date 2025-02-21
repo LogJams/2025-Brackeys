@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour, Equipment {
     [Header("Custom Weapon Properties")]
     public List<Enchantment> enchantments;
     public float baseDamage = 1;
+    public bool areaOfEffect = true;
 
     [Header("Required References")]
     public Collider hitArea;
@@ -17,7 +18,10 @@ public class Weapon : MonoBehaviour, Equipment {
     protected Vitality owner;
 
     public override string ToString() {
-        return enchantments[0].name + "blade";
+        if (enchantments.Count > 0) {
+            return enchantments[0].name + "blade";
+        }
+        return "Basic Weapon";
     }
 
     public Vitality GetOwner() {
@@ -36,7 +40,9 @@ public class Weapon : MonoBehaviour, Equipment {
         //make sure 1. it's got a vitality, 2. it's not ourselves, and 3. it's not an AI trigger
         if (other.TryGetComponent(out toHit) && toHit != owner && other.gameObject.layer != LayerMask.NameToLayer("AI Trigger")) {
             /////// disable hitArea and handle enchantment/combat in the Vitality
-            //hitArea.enabled = false;
+            if (!areaOfEffect) {
+                hitArea.enabled = false;
+            }
             toHit.Attacked(this);
         }
     }
