@@ -19,7 +19,9 @@ public class UIEquipment : MonoBehaviour {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         weaponText.text = player.GetWeapon().ToString();
+        weaponIcon.sprite = player.GetWeapon().icon;
         armorText.text = player.GetArmor().ToString();
+        armorIcon.sprite = player.GetArmor().icon;
         //todo: icons
         player.OnWeaponChange += OnChangeGear;
         player.OnArmorChange += OnChangeGear;
@@ -28,7 +30,9 @@ public class UIEquipment : MonoBehaviour {
 
     void OnChangeGear(System.Object src, (Weapon, Armor) prevItems) {
         weaponText.text = player.GetWeapon().ToString();
+        weaponIcon.sprite = player.GetWeapon().icon;
         armorText.text = player.GetArmor().ToString();
+        armorIcon.sprite = player.GetArmor().icon;
         //todo: icons
     }
 

@@ -444,6 +444,7 @@ MonoBehaviour:
   enchantments: []
   baseDamage: 1
   areaOfEffect: 1
+  icon: {fileID: 0}
   hitArea: {fileID: 24460584}
   projectilePrefab: {fileID: 4397142194216172769, guid: afc34c5a8046cdb41adfe5f8f39a9e49, type: 3}
 --- !u!1001 &26883894
@@ -7303,6 +7304,7 @@ MonoBehaviour:
   enchantments: []
   baseDamage: 1
   areaOfEffect: 1
+  icon: {fileID: 0}
   hitArea: {fileID: 393944337}
   projectilePrefab: {fileID: 4397142194216172769, guid: afc34c5a8046cdb41adfe5f8f39a9e49, type: 3}
 --- !u!1001 &396583541
@@ -18245,6 +18247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08cf45dd1501b5345b9289ece0d858ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: cc9c9ae065eeb774f946a12e7a4fa70f, type: 3}
   attributes: 
   bonus_hp: 4
 --- !u!4 &918017676 stripped
@@ -28717,7 +28720,7 @@ GameObject:
   - component: {fileID: 1480852424}
   - component: {fileID: 1480852425}
   m_Layer: 0
-  m_Name: Coward's Armor
+  m_Name: Coward's Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28750,6 +28753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08cf45dd1501b5345b9289ece0d858ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: bc65e718e0c93884b8423b1f840ed990, type: 3}
   attributes: 05000000
   bonus_hp: 4
 --- !u!4 &1493609509 stripped
@@ -40863,16 +40867,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3393702113420351928, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_Name
-      value: Hero's Loincloth
+      value: Hero's Wraps
       objectReference: {fileID: 0}
     - target: {fileID: 3942428743083237217, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_Name
       value: Tunic
       objectReference: {fileID: 0}
     - target: {fileID: 6045609392927564732, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: bd36a1d73423f0941939d83713f17c14, type: 3}
+    - target: {fileID: 6045609392927564732, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: bonus_hp
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8083303543251585626, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a2d82b56381dce4f830d5f6041940ad, type: 3}
     - target: {fileID: 8097725456965729370, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_Size.z
       value: 1

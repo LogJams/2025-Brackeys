@@ -11,6 +11,8 @@ public class Weapon : MonoBehaviour, Equipment {
     public float baseDamage = 1;
     public bool areaOfEffect = true;
 
+    public Sprite icon;
+
     [Header("Required References")]
     public Collider hitArea;
 
