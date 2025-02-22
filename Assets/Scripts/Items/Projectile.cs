@@ -43,7 +43,6 @@ public class Projectile : MonoBehaviour {
         }
 
         if (other.GetComponent<Weapon>() != null) {
-            Debug.Log(other.gameObject.name);
             Destroy(this.gameObject);
         }
     }
