@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GearManager : MonoBehaviour {
 
@@ -37,6 +38,45 @@ public class GearManager : MonoBehaviour {
     void Start() {
         //unlock initially equipped weapon
         UnlockTracker.instance.UnlockWeapon(weapons[weaponIndex]);
+        UnlockTracker.instance.UnlockArmor(armors[armorIndex]);
+        UnlockTracker.instance.onUnlockWeapon += SetWeapon;
+        UnlockTracker.instance.onUnlockArmor += SetArmor;
+        UnlockTracker.instance.onLoseWeapon += DropWeapon;
+        UnlockTracker.instance.onLoseArmor += DropArmor;
+    }
+
+    public void SetWeapon(System.Object src, Weapon weap) {
+        Weapon oldWeapon = weapons[weaponIndex];
+        weaponIndex = weapons.IndexOf(weap);
+
+            for (int i = 0; i < weapons.Count; i++) {
+                weapons[i].gameObject.SetActive(i == weaponIndex);
+            }
+            OnWeaponChange?.Invoke(this, (oldWeapon, armors[armorIndex]));
+    }
+
+    public void SetArmor(System.Object src, Armor arm) {
+        Armor oldArmor = armors[armorIndex];
+        armorIndex = armors.IndexOf(arm);
+
+        for (int i = 0; i < armors.Count; i++) {
+            armors[i].gameObject.SetActive(i == armorIndex);
+        }
+        OnArmorChange?.Invoke(this, (weapons[weaponIndex], oldArmor));
+    }
+
+    void DropWeapon(System.Object src, Weapon weap) {
+        int idx = weapons.IndexOf(weap);
+        if (idx == weaponIndex) {
+            CycleWeapon();
+        }
+    }
+
+    void DropArmor(System.Object src, Armor arm) {
+        int idx = armors.IndexOf(arm);
+        if (idx == armorIndex) {
+            CycleArmor();
+        }
     }
 
 
@@ -58,12 +98,19 @@ public class GearManager : MonoBehaviour {
     }
 
     public void CycleArmor() {
+        int prevArmor = armorIndex;
         Armor oldArmor = armors[armorIndex];
         armorIndex = (armorIndex + 1) % armors.Count;
-        for (int i = 0; i < armors.Count; i++) {
-            armors[i].gameObject.SetActive(i == armorIndex);
+
+        while (!UnlockTracker.instance.IsArmorUnlocked(armors[armorIndex])) {
+            armorIndex = (armorIndex + 1) % armors.Count;
         }
-        OnArmorChange?.Invoke(this, (weapons[weaponIndex], oldArmor));
+        if (prevArmor != armorIndex) {
+            for (int i = 0; i < armors.Count; i++) {
+                armors[i].gameObject.SetActive(i == armorIndex);
+            }
+            OnArmorChange?.Invoke(this, (weapons[weaponIndex], oldArmor));
+        }
     }
 
 

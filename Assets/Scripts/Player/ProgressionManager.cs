@@ -42,6 +42,9 @@ public class ProgressionManager : MonoBehaviour {
     public GameObject redBarrel;
     public Announcement secondDeath;
     public Announcement SecondDeathP2;
+    public Armor initialArmor;
+    public Armor basicArmor;
+    
 
 
 
@@ -60,13 +63,18 @@ public class ProgressionManager : MonoBehaviour {
 
 
     private void Update() {
-        if (announcing && Input.GetKeyUp(KeyCode.Space)) {
+        if (currentlyDying) return;
+
+        if (announcing && Input.anyKeyDown) {
             EndAnnouncement?.Invoke(this, System.EventArgs.Empty);
             announcing = false;
+            //follow-up to the first announcement
             if (checkpoint == 2) {
                 Announce(SecondDeathP2);
                 checkpoint = 3;
                 announcing = true;
+                UnlockTracker.instance.UnlockArmor(basicArmor);
+                UnlockTracker.instance.LockArmor(initialArmor);
             }
         }   
     }

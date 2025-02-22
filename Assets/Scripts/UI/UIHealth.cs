@@ -5,25 +5,21 @@ public class UIHealth : MonoBehaviour {
 
     public Vitality playerVtl;
 
-    Slider hpSlider;
+    public GameObject healthIcon;
 
-    private void Awake() {
-        hpSlider = GetComponent<Slider>();
-    }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
-        hpSlider.maxValue = playerVtl.max_hp;
-        hpSlider.value = playerVtl.hp;
-
+    void Awake() {
         playerVtl.OnDamage += OnDamage;
         playerVtl.OnHeal += OnDamage;
-
     }
 
-
     public void OnDamage(System.Object src, float dmg) {
-        //we can put up some 3D text "3 damage! 5 damage! critical hit!"
-        hpSlider.value = playerVtl.hp;
+        foreach (Transform t in transform) {
+            Destroy(t.gameObject);
+        }
+
+        for (int i = 0; i < playerVtl.hp; i++) {
+            Instantiate(healthIcon, transform);
+        }
     }
 }

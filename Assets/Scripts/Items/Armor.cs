@@ -26,7 +26,7 @@ public class Armor : MonoBehaviour, Equipment {
             description += attribute + " ";
         }
 
-        return description + "Armor";
+        return description + gameObject.name;
     }
 
 

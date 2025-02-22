@@ -141,6 +141,12 @@ public class Vitality : MonoBehaviour {
         UpdateWeaponBenefits(previous.Item1);
         //add attributes from the new armor + base in case we deleted them
         AddAttributes(equipment.GetWeapon(), equipment.GetArmor());
+        //update base health bonus
+        int dh = equipment.GetArmor().bonus_hp - previous.Item2.bonus_hp;
+        if (dh != 0) {
+            max_hp += dh;
+            hp += dh;
+        }
     }
 
     public void OnWeaponChange(System.Object src, (Weapon, Armor) previous) {
