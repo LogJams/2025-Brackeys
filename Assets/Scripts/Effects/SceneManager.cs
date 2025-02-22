@@ -76,7 +76,7 @@ public class SceneManager : MonoBehaviour {
             Application.Quit();
         }
         if (Input.GetKeyUp(KeyCode.F1)) {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         }
 
     }
