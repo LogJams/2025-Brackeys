@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -675,7 +675,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &30349021
 PrefabInstance:
@@ -2797,7 +2797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -4696,7 +4696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -4704,7 +4704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -8236,7 +8236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 478690510}
   attackHandler: {fileID: 1406070409}
-  aggroRadius: 22
+  aggroRadius: 12
   leash: 1
   windUpTime: 0.1
   swingTime: 0.15
@@ -10030,7 +10030,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &478821777
 GameObject:
@@ -12731,7 +12731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -12739,7 +12739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -14467,7 +14467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -14475,7 +14475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -14688,8 +14688,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 1611102678}
   attackHandler: {fileID: 585491231}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -17313,6 +17313,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1416810853}
     m_Modifications:
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4528888763381533394, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (10)
@@ -17967,6 +17975,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 263667874}
     m_Modifications:
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4528888763381533394, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (10)
@@ -18097,7 +18113,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &836665732
 PrefabInstance:
@@ -18857,7 +18873,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &865490976
 GameObject:
@@ -21446,7 +21462,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &995829394
 GameObject:
@@ -22050,7 +22066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -22058,7 +22074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -22620,6 +22636,14 @@ PrefabInstance:
     - target: {fileID: 9203938796069245880, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9203938796069245883, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
       propertyPath: m_LocalScale.x
@@ -23598,7 +23622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -23606,7 +23630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -23819,8 +23843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 2072790089}
   attackHandler: {fileID: 235551283}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -25200,7 +25224,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1166608858 stripped
 Transform:
@@ -27440,6 +27464,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9203938796069245883, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -27510,6 +27542,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1024609459}
     m_Modifications:
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4528888763381533394, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (9)
@@ -28094,7 +28134,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1317260694
 PrefabInstance:
@@ -28354,6 +28394,14 @@ PrefabInstance:
     - target: {fileID: 9203938796069245880, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203938796069245882, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9203938796069245883, guid: b100033bd257c8e479a5c0a5b148fa2c, type: 3}
       propertyPath: m_LocalScale.x
@@ -28948,7 +28996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -28956,7 +29004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -30604,7 +30652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: leash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: windUpTime
@@ -30612,7 +30660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -32421,6 +32469,14 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1045583631839351884, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045583631839351884, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1045583631839351885, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.4999995
@@ -32888,6 +32944,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1094725486}
     m_Modifications:
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528888763381533392, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4528888763381533394, guid: 0e984e923d84c6644a3633bbbc1127b9, type: 3}
       propertyPath: m_Name
       value: Little_Ghost_ZOMbi (10)
@@ -33088,8 +33152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 835152894}
   attackHandler: {fileID: 905367840}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 12
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -34488,7 +34552,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1613869751
 GameObject:
@@ -36780,6 +36844,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 681309755}
     m_Modifications:
+    - target: {fileID: 1045583631839351884, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045583631839351884, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1045583631839351885, guid: e5ee9efbfc920f245962816752e72e91, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.4999995
@@ -38067,8 +38139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 2099203602}
   attackHandler: {fileID: 2050801694}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -38443,7 +38515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: aggroRadius
-      value: 22
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1830485412858451600, guid: e83583cff5edfcc48a20aefb2e2fd477, type: 3}
       propertyPath: recoveryTime
@@ -39129,8 +39201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 1316154331}
   attackHandler: {fileID: 1758521385}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -40111,6 +40183,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1360660639}
     m_Modifications:
+    - target: {fileID: 6466474970774430889, guid: 766762930a40b174c8956cdf3007423e, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466474970774430889, guid: 766762930a40b174c8956cdf3007423e, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6466474970774430890, guid: 766762930a40b174c8956cdf3007423e, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.5
@@ -40975,8 +41055,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 990699433}
   attackHandler: {fileID: 2096922139}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -43219,7 +43299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 864667293}
   attackHandler: {fileID: 481926467}
-  aggroRadius: 22
+  aggroRadius: 12
   leash: 1
   windUpTime: 0.1
   swingTime: 0.15
@@ -43962,8 +44042,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 1164656499}
   attackHandler: {fileID: 2084631001}
-  aggroRadius: 22
-  leash: 0
+  aggroRadius: 13
+  leash: 1
   windUpTime: 0.1
   swingTime: 0.15
   recoveryTime: 0.9
@@ -44725,7 +44805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 29135634}
   attackHandler: {fileID: 1012113332}
-  aggroRadius: 22
+  aggroRadius: 12
   leash: 1
   windUpTime: 0.1
   swingTime: 0.15
@@ -45405,7 +45485,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2081035030
 PrefabInstance:
@@ -45942,7 +46022,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 22
+  m_Radius: 13
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2100685047
 PrefabInstance:
@@ -46399,7 +46479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728359397266044175, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.4
+      value: -69.8
       objectReference: {fileID: 0}
     - target: {fileID: 1728359397266044175, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46407,7 +46487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728359397266044175, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3
+      value: -3.4
       objectReference: {fileID: 0}
     - target: {fileID: 1728359397266044175, guid: c7d3139ede06d684bab65da1b60ebda1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46520,7 +46600,6 @@ GameObject:
   - component: {fileID: 2117669776}
   - component: {fileID: 2117669775}
   - component: {fileID: 2117669774}
-  - component: {fileID: 2117669778}
   m_Layer: 0
   m_Name: Ground (2)
   m_TagString: Untagged
@@ -46650,38 +46729,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117669772}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2117669778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117669772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
 --- !u!1 &2129970256
 GameObject:
   m_ObjectHideFlags: 0
