@@ -86,7 +86,6 @@ public class PlayerInteractions : MonoBehaviour
             interacting = !interacting;
 
             if (interacting) {
-                Debug.Log("Start interaction event!");
                 OnInteractionEvent?.Invoke(this, currentInteraction);
                 currentInteraction.Interact();
             } else {
@@ -141,7 +140,7 @@ public class PlayerInteractions : MonoBehaviour
             {
                 // Reverse the current movement direction and add speed bonus
                 dodgeDirection = transform.forward;
-                currentMoveSpeed = playerMovement.speed;
+                currentMoveSpeed = playerMovement.base_speed;
             }
             else
             {

@@ -8,11 +8,15 @@ public class PickableObject : MonoBehaviour, IInteractable {
 
 
     public List<Weapon> unlockedWeapon;
+    public List<Armor> unlockedArmor;
 
     public void Interact() {
         OnPickObject?.Invoke(this, gameObject.name);
         foreach (Weapon w in unlockedWeapon) {
             UnlockTracker.instance.UnlockWeapon(w);
+        }
+        foreach (Armor a in unlockedArmor) {
+            UnlockTracker.instance.UnlockArmor(a);
         }
         //delete the 3D model
         foreach (Transform tf in transform) {

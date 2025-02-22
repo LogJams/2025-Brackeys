@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 
     
     [Header("Player Variables")]
-    public float speed;
+    public float base_speed = 6;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         //from above, move the character at speed
+        float speed = GetComponent<Vitality>().GetAttributes().Contains(ATTRIBUTE.Speedy) ? 2*base_speed : base_speed;
         charactercontroller.SimpleMove(inputRotation * movement * speed);
     }
 
