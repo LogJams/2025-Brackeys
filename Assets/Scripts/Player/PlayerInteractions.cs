@@ -122,7 +122,7 @@ public class PlayerInteractions : MonoBehaviour
         }
 
         // Cycle armor
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !isAttacking && !isDodging)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDodging)
         {
             equipment.CycleArmor();
         }
