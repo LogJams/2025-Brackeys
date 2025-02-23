@@ -1974,6 +1974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1232384879}
   zoomDist: 90
+  zoomSpeed: 50
 --- !u!4 &352816911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 532841199069962250, guid: bdd3e065cf4a6e649a31526046dd3a26, type: 3}
@@ -3668,7 +3669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &602358726
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12043,7 +12044,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 494fb78c3240b42418a874313e7bc158, type: 2}
+  - {fileID: 2100000, guid: d2e12dc309a1e024890d4ae69fcef639, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12154,6 +12155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.5
+  min_alpha: 0.05
 --- !u!1001 &7430569181401676380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12290,7 +12292,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 6
+  m_Radius: 15
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!136 &8609358977464770021
 CapsuleCollider:
