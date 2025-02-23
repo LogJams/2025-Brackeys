@@ -7,6 +7,8 @@ public enum MOVEMENT_TYPE {
 
 public class PlayerMovement : MonoBehaviour {
 
+    public Transform GroundPlaneForRaycast;
+
     private CharacterController charactercontroller;
 
     [Header("Test Different Input Configurations Here")]
@@ -87,9 +89,11 @@ public class PlayerMovement : MonoBehaviour {
 
     public Vector3 MouseWorldPoint()
     {
+        GroundPlaneForRaycast.position = new Vector3(0, transform.position.y, 0);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.NameToLayer("GROUND_PLANE_ONLY"), QueryTriggerInteraction.Ignore))
+        //this check ignores the given layer, so we invert the LayerMask
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, (1 << LayerMask.NameToLayer("GROUND_PLANE_ONLY")) , QueryTriggerInteraction.Ignore))
         {
             return hitInfo.point;
         }

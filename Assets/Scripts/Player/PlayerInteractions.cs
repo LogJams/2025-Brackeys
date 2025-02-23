@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -73,7 +74,7 @@ public class PlayerInteractions : MonoBehaviour
         GetComponent<Vitality>().OnDamage += HurtSound;
 
     }
-    
+
     public void HitSound(System.Object src, Vitality target) {
         audio.PlayOneShot(hit);
     }
@@ -103,7 +104,21 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-   
+
+    public void Reset() {
+
+
+        if (currentInteraction != null) {
+            OnInteractionEnd(this, null);
+            currentInteraction = null;
+            interacting = false;
+        }
+
+
+        isDodging = false;
+        isAttacking = false;
+        canDodge = true;
+    }
 
     void Update()
     {

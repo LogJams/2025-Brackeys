@@ -148,7 +148,8 @@ public class ProgressionManager : MonoBehaviour {
 
         dist = (player.transform.position - destination.position).magnitude;
         StartCoroutine(MoveToSpawn(dist / timeScale, destination));
-
+        //the coroutine will move us out of the boss area, but we will be disabled so the trigger won't fire
+        playerInBossArea = false;
     }
 
     void Announce(Announcement anc) {
@@ -158,6 +159,7 @@ public class ProgressionManager : MonoBehaviour {
 
 
     void SetPlayerStatus(bool enabled) {
+        player.gameObject.SetActive(enabled);
         player.GetComponent<PlayerMovement>().enabled = enabled;
         player.GetComponent<PlayerInteractions>().enabled = enabled;
         player.enabled = enabled;
@@ -179,6 +181,7 @@ public class ProgressionManager : MonoBehaviour {
         player.transform.rotation = spawn.rotation;
         SetPlayerStatus(true);
         player.Reset();
+        player.GetComponent<PlayerInteractions>().Reset();
         currentlyDying = false;
         yield return null;
     }

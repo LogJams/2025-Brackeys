@@ -19,14 +19,14 @@ public class PickableObject : MonoBehaviour, IInteractable {
             UnlockTracker.instance.UnlockArmor(a);
         }
         //delete the 3D model
-        foreach (Transform tf in transform) {
-            Destroy(tf.gameObject);
+        foreach (var mesh in GetComponentsInChildren<MeshRenderer>()) {
+            Destroy(mesh.gameObject);
         }
     }
 
     public bool EndInteraction() {
         OnEndInteraction?.Invoke(this, System.EventArgs.Empty);
-        Destroy(gameObject);
+        DestroyImmediate(gameObject);
         return true;
     }
 

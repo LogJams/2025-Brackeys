@@ -74,11 +74,14 @@ public class Vitality : MonoBehaviour {
     }
 
     public void Reset() {
-        hp = max_hp;
         List<EFFECTS> stats = new List<EFFECTS>(statusEffects);
         foreach (var st in stats) {
             RemoveStatusEffect(st);
         }
+        currentAttributes.Clear();
+        hp = max_hp;
+        AddAttributes(equipment.GetWeapon(), equipment.GetArmor());
+        UpdateWeaponBenefits(equipment.GetWeapon());
     }
 
     public List<EFFECTS> GetEffects() {

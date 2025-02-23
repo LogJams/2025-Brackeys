@@ -41,6 +41,7 @@ public class EnemyBasicAI : MonoBehaviour {
         nav = GetComponent<NavMeshAgent>();
         weapon = GetComponentInChildren<Weapon>();
         anim = GetComponentInChildren<Animator>();
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,7 +66,7 @@ public class EnemyBasicAI : MonoBehaviour {
     void Update() {
 
         if (animateSpeed && anim != null && nav != null) {
-            anim.SetFloat("Speed", nav.velocity.magnitude / nav.speed / 2f);
+            anim.SetFloat("Speed", nav.velocity.magnitude / nav.speed);
         }
 
         //make no decisions if we're busy attacking right now (and we are capable of moving!)
@@ -95,7 +96,7 @@ public class EnemyBasicAI : MonoBehaviour {
         if (ignoreAggro) return;
 
         //stay a little bit away from the target and hit it
-        Vector3 dp = 5 * nav.radius * (location - transform.position).normalized;
+        Vector3 dp = 3 * nav.radius * (location - transform.position).normalized;
         //move to attacj!
         nav.SetDestination(location - dp);
     }
@@ -113,12 +114,14 @@ public class EnemyBasicAI : MonoBehaviour {
 
 
     IEnumerator AttackTimer() {
+        busy = true;
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(windUpTime);
         weapon.StartSwinging();
         yield return new WaitForSeconds(swingTime);
         weapon.StopSwinging();
-        yield return null;
+        yield return new WaitForSeconds(recoveryTime);
+        busy = false;
     }
 
     void OnDeath(System.Object src, System.EventArgs e) {
