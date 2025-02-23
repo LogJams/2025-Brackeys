@@ -5,7 +5,7 @@ public class UIDisplayText : MonoBehaviour {
     public TMPro.TMP_Text displayText;
 
 
-    private void Start() {
+    private void Awake() {
 
         foreach (var interactable in FindObjectsByType<ReadableObject>(FindObjectsSortMode.None)) {
             interactable.OnReadObject += OnDisplayText;
@@ -13,10 +13,6 @@ public class UIDisplayText : MonoBehaviour {
         foreach (var interactable in FindObjectsByType<PickableObject>(FindObjectsSortMode.None)) {
             interactable.OnPickObject += OnDisplayText;
         }
-
-
-        displayText.gameObject.SetActive(false);
-
     }
 
 

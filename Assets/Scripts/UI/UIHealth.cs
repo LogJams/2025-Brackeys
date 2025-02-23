@@ -60,6 +60,7 @@ public class UIHealth : MonoBehaviour {
     IEnumerator DeleteHeart(GameObject heart) {
         float t0 = Time.time;
         while (Time.time - t0 <= animTime/ dmgSpeedFactor) {
+            if (heart == null) break;
             heart.transform.localScale = Vector3.one * Mathf.Lerp(1, 0.001f, (Time.time - t0) / (animTime/ dmgSpeedFactor));
             yield return null;
         }
