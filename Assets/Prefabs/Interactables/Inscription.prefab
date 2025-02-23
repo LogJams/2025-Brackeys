@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3037504670363707760}
   - component: {fileID: 4414166939737040198}
   - component: {fileID: 6298798318077081030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 3D Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 7707270952127399552}
   - component: {fileID: 7700163266328876542}
   - component: {fileID: 5578020252565212534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Inscription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToDisplay: '[PLACEHOLDER TEXT]'
+  effectOnPlayer: []
 --- !u!135 &5578020252565212534
 SphereCollider:
   m_ObjectHideFlags: 0
