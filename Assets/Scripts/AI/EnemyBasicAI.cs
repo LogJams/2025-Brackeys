@@ -34,10 +34,12 @@ public class EnemyBasicAI : MonoBehaviour {
     bool busy = false;
     NavMeshAgent nav;
 
+    Animator anim;
 
     private void Awake() {
         nav = GetComponent<NavMeshAgent>();
         weapon = GetComponentInChildren<Weapon>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,6 +62,11 @@ public class EnemyBasicAI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+        if (anim != null && nav != null) {
+            anim.SetFloat("Speed", nav.velocity.magnitude / nav.speed / 2f);
+        }
+
         //make no decisions if we're busy attacking right now (and we are capable of moving!)
         if (busy || nav==null) {
             return;
