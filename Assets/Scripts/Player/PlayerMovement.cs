@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour {
 
     Quaternion q0;
 
+    private Animator anim;
     
     [Header("Player Variables")]
     public float base_speed = 6;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         charactercontroller = GetComponent<CharacterController>();
         q0 = transform.rotation;
+        anim = GetComponentInChildren<Animator>();
     }
     // Update is called once per frame
     void Update() {
@@ -70,8 +72,9 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         //from above, move the character at speed
-        float speed = GetComponent<Vitality>().GetAttributes().Contains(ATTRIBUTE.Speedy) ? 2*base_speed : base_speed;
-        charactercontroller.SimpleMove(inputRotation * movement * speed);
+        float scale = GetComponent<Vitality>().GetAttributes().Contains(ATTRIBUTE.Speedy) ? 2 : 1;
+        charactercontroller.SimpleMove(inputRotation * movement * scale * base_speed);
+        anim.SetFloat("Speed", scale*movement.z);
     }
 
     private void LookAt(Vector3 target) {

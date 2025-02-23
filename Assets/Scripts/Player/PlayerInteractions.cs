@@ -52,9 +52,12 @@ public class PlayerInteractions : MonoBehaviour
     private IInteractable currentInteraction = null;
     bool interacting = false;
 
+    private Animator anim;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-
+        anim = GetComponentInChildren<Animator>();
     }
 
 
@@ -86,6 +89,7 @@ public class PlayerInteractions : MonoBehaviour
             interacting = !interacting;
 
             if (interacting) {
+                anim.SetTrigger("OnInteract");
                 OnInteractionEvent?.Invoke(this, currentInteraction);
                 currentInteraction.Interact();
             } else {
@@ -148,7 +152,7 @@ public class PlayerInteractions : MonoBehaviour
                 dodgeDirection = transform.forward;
                 currentMoveSpeed = 0f;
             }
-
+            anim.SetBool("Dodge", true);
             StartCoroutine(ExecuteImprovedDodge(dodgeDirection, dodgeSpeed));
 
             if (canCancelAttack)
@@ -221,6 +225,14 @@ public class PlayerInteractions : MonoBehaviour
 
         //check confidence for direction
         float dir = GetComponent<Vitality>().QueryStatusEffect(EFFECTS.confident) ? -1.5f : 1;
+        
+        //set animation direciton
+        if (dir > 0) {
+            anim.SetFloat("DodgeMod", 1);
+        }
+        else {
+            anim.SetFloat("DodgeMod", -1);
+        }
 
         // Start invincibility
         StartCoroutine(ApplyInvincibilityFrames());
@@ -253,6 +265,7 @@ public class PlayerInteractions : MonoBehaviour
         // Re-enable normal movement
         playerMovement.enabled = true;
         isDodging = false;
+        anim.SetBool("Dodge", false);
 
         // Handle cooldown
         yield return new WaitForSeconds(dodgeCooldown - dodgeDuration);
