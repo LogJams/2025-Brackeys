@@ -3,12 +3,11 @@ using UnityEngine.UI;
 
 public class StatusInfoRow : MonoBehaviour {
 
-    Image icon;
+    public Image icon;
     TMPro.TMP_Text text;
 
 
     private void Awake() {
-        icon = GetComponentInChildren<Image>();
         text = GetComponentInChildren<TMPro.TMP_Text>();
     }
 

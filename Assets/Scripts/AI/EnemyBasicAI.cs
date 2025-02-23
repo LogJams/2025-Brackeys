@@ -7,7 +7,7 @@ public class EnemyBasicAI : MonoBehaviour {
     [Header("Put Objects with Trigger Colliders Here")]
     public AITrigger aggroHandler;
     public AITrigger attackHandler;
-
+    public bool animateSpeed = false;
     [Header("Aggro Characteristics")]
     [Range(2, 50)]
     public float aggroRadius = 4f;
@@ -63,7 +63,7 @@ public class EnemyBasicAI : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (anim != null && nav != null) {
+        if (animateSpeed && anim != null && nav != null) {
             anim.SetFloat("Speed", nav.velocity.magnitude / nav.speed / 2f);
         }
 

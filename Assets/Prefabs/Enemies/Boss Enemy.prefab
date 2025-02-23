@@ -190,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroHandler: {fileID: 7460256819809092292}
   attackHandler: {fileID: 3699533069091906740}
+  animateSpeed: 1
   aggroRadius: 20
   leash: 1
   windUpTime: 0.4
