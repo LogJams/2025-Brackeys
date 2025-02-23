@@ -55,11 +55,32 @@ public class PlayerInteractions : MonoBehaviour
     private Animator anim;
 
 
+    public AudioClip hit;
+    //public AudioClip interact;
+    public AudioClip hurt;
+
+    AudioSource audio;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         anim = GetComponentInChildren<Animator>();
+        audio = GetComponent<AudioSource>();
+
+        foreach (Weapon weap in equipment.GetWeapons()) {
+            weap.OnWeaponHit += HitSound;
+        }
+
+        GetComponent<Vitality>().OnDamage += HurtSound;
+
+    }
+    
+    public void HitSound(System.Object src, Vitality target) {
+        audio.PlayOneShot(hit);
     }
 
+    public void HurtSound(System.Object src, float dmg) {
+        audio.PlayOneShot(hurt);
+    }
 
     private enum AttackPhase
     {
@@ -81,6 +102,8 @@ public class PlayerInteractions : MonoBehaviour
             Debug.LogError("Required components missing on player!");
         }
     }
+
+   
 
     void Update()
     {

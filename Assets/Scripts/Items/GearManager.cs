@@ -18,7 +18,10 @@ public class GearManager : MonoBehaviour {
     int armorIndex = 0;
     List<Armor> armors;
 
-    
+
+    public List<Weapon> GetWeapons() {
+        return weapons;
+    }
 
     private void Awake() {
         weapons = new List<Weapon>();

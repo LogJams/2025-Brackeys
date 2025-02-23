@@ -6,6 +6,8 @@ using UnityEngine;
 public class Weapon : MonoBehaviour, Equipment {
 
 
+    public event System.EventHandler<Vitality> OnWeaponHit;
+
     [Header("Custom Weapon Properties")]
     public List<Enchantment> enchantments;
     public float baseDamage = 1;
@@ -46,6 +48,7 @@ public class Weapon : MonoBehaviour, Equipment {
                 hitArea.enabled = false;
             }
             toHit.Attacked(this);
+            OnWeaponHit?.Invoke(this, toHit);
         }
     }
 

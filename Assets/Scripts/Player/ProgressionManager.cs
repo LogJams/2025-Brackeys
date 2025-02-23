@@ -10,6 +10,10 @@ public struct Announcement {
 
 public class ProgressionManager : MonoBehaviour {
 
+    public event System.EventHandler PlayerEntersBossArea;
+    public event System.EventHandler PlayerLeavesBossArea;
+
+
     public static ProgressionManager instance;
 
     public Vitality player;
@@ -27,6 +31,7 @@ public class ProgressionManager : MonoBehaviour {
     public event System.EventHandler<Announcement> OnAnnouncement;
     public event System.EventHandler EndAnnouncement;
     bool announcing = false;
+    public GameObject doorToDelete;
 
 
     [Range(1, 20)]
@@ -37,16 +42,28 @@ public class ProgressionManager : MonoBehaviour {
     private int checkpoint = 0;
 
     [Header("Store all the announcements here.....")]
+    public Announcement gameStart;
     public Announcement firstDeath;
+    public Announcement firstDeathAgain;
     public Weapon basicWeapon;
-    public GameObject redBarrel;
     public Announcement secondDeath;
     public Announcement SecondDeathP2;
     public Armor initialArmor;
     public Armor basicArmor;
+
+    public Announcement diedWithConfidence;
+    public Weapon confidenceBlade;
+
+    public Announcement diedWithRed;
+    public Armor redArmor;
     
 
+    public Vitality bossHp;
+    public Announcement BossDead;
+    bool gameOver = false;
 
+
+    bool playerInBossArea = false;
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -59,11 +76,18 @@ public class ProgressionManager : MonoBehaviour {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         player.OnDeath += OnPlayerDeath;
+        bossHp.OnDeath += OnBossDead;
+        Announce(gameStart);
     }
 
 
+    public void OnBossDead(System.Object source, System.EventArgs e) {
+        Announce(BossDead);
+        gameOver = true;
+    }
+
     private void Update() {
-        if (currentlyDying) return;
+        if (currentlyDying || gameOver) return;
 
         if (announcing && Input.anyKeyDown) {
             EndAnnouncement?.Invoke(this, System.EventArgs.Empty);
@@ -75,6 +99,7 @@ public class ProgressionManager : MonoBehaviour {
                 announcing = true;
                 UnlockTracker.instance.UnlockArmor(basicArmor);
                 UnlockTracker.instance.LockArmor(initialArmor);
+                Destroy(doorToDelete);
             }
         }   
     }
@@ -84,39 +109,46 @@ public class ProgressionManager : MonoBehaviour {
         if (currentlyDying) return;
         numDeaths++;
 
+
+  
+
+        float dist = 0;
         if (numDeaths == 1) {
-            float dist = (player.transform.position - bossSpawn.position).magnitude;
+            dist = (player.transform.position - bossSpawn.position).magnitude;
             Announce(firstDeath);
             UnlockTracker.instance.UnlockWeapon(basicWeapon);
             StartCoroutine(MoveToSpawn(dist / timeScale, bossSpawn));
             checkpoint = 1;
         }
-        else if (checkpoint == 1 && redBarrel == null) {
+        else if (checkpoint == 1 && playerInBossArea) {
             //play a death animation
             Announce(secondDeath);
             //load the next scene
             checkpoint = 2;
         }
-        else {
-            //generic revive based on where we were last
-            Transform destination = centralSpawn;
-            if (current_room == 0) {
-                //central spawn
-            }
-            if (current_room == 1) {
-                destination = loganSpawn;
-            }
-            if (current_room == 2) {
-                destination = adiSpawn;
-            }
-            if (current_room == 3) {
-                destination = bossSpawn;
-            }
-
-            float dist = (player.transform.position - destination.position).magnitude;
-            StartCoroutine(MoveToSpawn(dist / timeScale, destination));
-
+        else if (playerInBossArea && UnlockTracker.instance.IsWeaponUnlocked(confidenceBlade) && !UnlockTracker.instance.IsArmorUnlocked(redArmor)) {
+            //we died to the boss again later
+            Announce(diedWithConfidence);
         }
+        else if (playerInBossArea && UnlockTracker.instance.IsArmorUnlocked(redArmor)) {
+            Announce(diedWithRed);
+        }
+
+        //pick where to spawn
+        Transform destination = centralSpawn;
+
+        if (checkpoint < 2) {
+            destination = bossSpawn;
+            //remind the player....
+            if (checkpoint == 1 && !announcing) {
+                Announce(firstDeathAgain);
+            }
+        }
+
+
+        dist = (player.transform.position - destination.position).magnitude;
+        StartCoroutine(MoveToSpawn(dist / timeScale, destination));
+
     }
 
     void Announce(Announcement anc) {
@@ -149,6 +181,21 @@ public class ProgressionManager : MonoBehaviour {
         player.Reset();
         currentlyDying = false;
         yield return null;
+    }
+
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            playerInBossArea = true;
+            PlayerEntersBossArea?.Invoke(this, System.EventArgs.Empty);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            playerInBossArea = false;
+            PlayerLeavesBossArea?.Invoke(this, System.EventArgs.Empty);
+        }
     }
 
 }

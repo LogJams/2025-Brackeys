@@ -3,10 +3,11 @@ using UnityEngine;
 public class UIAnnouncement : MonoBehaviour {
 
     public TMPro.TMP_Text text;
+    public GameObject root;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        text.gameObject.SetActive(false);
+        root.SetActive(false);
         ProgressionManager.instance.OnAnnouncement += OnAnnouncement;
         ProgressionManager.instance.EndAnnouncement += EndAnnouncement;
 
@@ -14,12 +15,12 @@ public class UIAnnouncement : MonoBehaviour {
 
 
     void OnAnnouncement(System.Object src, Announcement anc) {
-        text.gameObject.SetActive(true);
+        root.SetActive(true);
         text.text = anc.message;
     }
 
     void EndAnnouncement(System.Object src, System.EventArgs e) {
-        text.gameObject.SetActive(false);
+        root.SetActive(false);
     }
 
 }

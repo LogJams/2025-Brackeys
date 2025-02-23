@@ -154,8 +154,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0b132c9426c194248bd9a565700c31a7, type: 3}
-  m_Resource: {fileID: 8300000, guid: 0b132c9426c194248bd9a565700c31a7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e655b45f9e9428b4280c32f22590ccc6, type: 3}
+  m_Resource: {fileID: 8300000, guid: e655b45f9e9428b4280c32f22590ccc6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -315,8 +315,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278783304
-  m_fontColor: {r: 0.2830189, g: 0.050288063, b: 0.033374865, a: 1}
+    rgba: 4290362874
+  m_fontColor: {r: 0.9811321, g: 0.74275434, b: 0.72659314, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

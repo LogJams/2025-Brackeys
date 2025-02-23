@@ -9,14 +9,15 @@ public class Ethereal : MonoBehaviour {
 
     public float min_alpha = 0.05f;
 
+    public SkinnedMeshRenderer MR;
+
     Material mat;
 
     Coroutine fade;
 
     void Awake() {
         owner = GetComponentInParent<Vitality>();
-        mat = owner.GetComponent<MeshRenderer>().material;
-
+        mat = MR.material;
     }
 
     void OnTriggerEnter(Collider other) {

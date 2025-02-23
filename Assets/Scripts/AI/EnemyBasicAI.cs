@@ -27,6 +27,7 @@ public class EnemyBasicAI : MonoBehaviour {
         new Keyframe(1, 1, 0.5f, 0)       // Sharper end
     );
 
+    public bool separate_attack = false;
 
     //set this to true when leashing
     bool ignoreAggro = false;
@@ -101,8 +102,23 @@ public class EnemyBasicAI : MonoBehaviour {
 
     void OnAttack(System.Object src, Vector3 location) {
         if (!busy) {
-            StartCoroutine(ExecuteAttack());
+            if (!separate_attack) {
+                StartCoroutine(ExecuteAttack());
+            }
+            else {
+                StartCoroutine(AttackTimer());
+            }
         }
+    }
+
+
+    IEnumerator AttackTimer() {
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(windUpTime);
+        weapon.StartSwinging();
+        yield return new WaitForSeconds(swingTime);
+        weapon.StopSwinging();
+        yield return null;
     }
 
     void OnDeath(System.Object src, System.EventArgs e) {
