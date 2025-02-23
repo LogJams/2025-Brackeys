@@ -14,6 +14,7 @@ public class UnlockTracker : MonoBehaviour {
     Dictionary<Weapon, bool> unlockedWeapons;
     Dictionary<Armor, bool> unlockedArmor;
 
+    public bool debug_unlock_all = false;
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -27,6 +28,7 @@ public class UnlockTracker : MonoBehaviour {
     }
 
     public bool IsWeaponUnlocked(Weapon weap) {
+        if (debug_unlock_all) return true;
         return (unlockedWeapons.ContainsKey(weap) && unlockedWeapons[weap]);
     }
 
@@ -43,6 +45,7 @@ public class UnlockTracker : MonoBehaviour {
     }
 
     public bool IsArmorUnlocked(Armor arm) {
+        if (debug_unlock_all) return true;
         return (unlockedArmor.ContainsKey(arm) && unlockedArmor[arm]);
     }
 
