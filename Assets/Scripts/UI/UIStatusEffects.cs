@@ -51,6 +51,7 @@ public class UIStatusEffects : MonoBehaviour {
 
         player.OnAttributeChange += OnAttributeChange;
 
+        UpdateUI();
     }
 
 

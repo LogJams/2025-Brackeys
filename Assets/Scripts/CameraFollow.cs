@@ -8,7 +8,9 @@ public class CameraFollow : MonoBehaviour {
 
     Vector3 viewNormal = new Vector3(-0.49f, 0.71f, -0.49f);
 
-    
+    public float zoomSpeed = 50f;
+    float minZoom = 30f;
+    float maxZoom = 90f;
 
     
 
@@ -17,6 +19,10 @@ public class CameraFollow : MonoBehaviour {
         
     }
 
+    private void Update() {
+        float dz = Input.mouseScrollDelta.y;
+        zoomDist = Mathf.Clamp(zoomDist + zoomSpeed * dz * Time.deltaTime, minZoom, maxZoom);
+    }
 
     // Update is called once per frame
     void LateUpdate() {
